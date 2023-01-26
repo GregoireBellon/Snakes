@@ -19,7 +19,5 @@ public class Server {
 		CommunicationBridge bridge = new CommunicationBridge(so, rev);
 		
 		bridge.listen();
-		
 	}
-
 }
