@@ -19,27 +19,27 @@ public class Reciever extends RequestHandler {
 
 	private TempRoom rm;
 
-	public Reciever(TempRoom rm, Socket so){
-		super(so);
+	public Reciever(TempRoom rm){
+		super();
 		this.rm = rm;
 	}
 
-	private FunctionRequest handle_connexion = (Request r) -> {
+	private FunctionRequest handle_connexion = (Request r, Socket soc) -> {
 		Connexion c = (Connexion) r;
-		rm.connexion(c.getUsername(), so);
+		rm.connexion(c.getUsername(), soc);
 	};
 
-	private FunctionRequest handle_deconnexion = (Request r) -> {
+	private FunctionRequest handle_deconnexion = (Request r, Socket soc) -> {
 		Deconnexion c = (Deconnexion) r;
 		rm.deconnexion(c.getUsername());
 	};
 
-	private FunctionRequest handle_game_info = (Request r) -> {
+	private FunctionRequest handle_game_info = (Request r, Socket soc) -> {
 		GameInfo c = (GameInfo) r;
 		System.out.println("Requête d'info de game");
 	};
 	
-	private FunctionRequest handle_response = (Request r) -> {
+	private FunctionRequest handle_response = (Request r, Socket soc) -> {
 		Response c = (Response) r;
 		System.out.println("Requête de réponse");
 	};

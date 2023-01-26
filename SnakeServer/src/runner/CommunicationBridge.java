@@ -14,17 +14,16 @@ request_handling.RequestFactory;
 
 public class CommunicationBridge {
 
-	private int port; 
-	private Class<? extends RequestHandler> req_handler;
+	private RequestHandler req_handler;
+	private ServerSocket serv;
 	
-	CommunicationBridge(int port, Class<? extends RequestHandler> req_handler){
-		this.port = port; 
+	CommunicationBridge(ServerSocket serv, RequestHandler req_handler){
 		this.req_handler = req_handler;
+		this.serv = serv;
 	}
 
 	public void listen(){
 		try {
-			ServerSocket serv = new ServerSocket(this.port);
 			Socket so; 
 			BufferedInputStream data_in;
 
@@ -32,46 +31,15 @@ public class CommunicationBridge {
 
 			while(true) {
 				so = serv.accept();
-				data_in = new BufferedInputStream(so.getInputStream());
+//				data_in = new BufferedInputStream(so.getInputStream());
 				
-				RequestHandler handler_object = this.req_handler.getConstructor(TempRoom.class, Socket.class).newInstance(new TempRoom(), so);
-
+				req_handler.listenToSocket(so);
 				
-				Thread t = new Thread(handler_object);
-				t.run();
-				
-//				try {
-//					Request r = RequestFactory.fromBytes(data_in.readAllBytes());
-//					this.cb.handle(r, so); 
-//
-//				} catch (NoSuchFieldException e) {
-//
-//					System.out.println("Recieved request of unknown type");
-//
-//				}
-				
-//				so.close();			
 			}
-
-			//			serv.close();
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NoSuchMethodException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
 		} catch (SecurityException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
