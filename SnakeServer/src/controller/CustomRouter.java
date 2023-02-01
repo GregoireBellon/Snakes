@@ -15,11 +15,11 @@ import requestsLib.request_handling.RequestFactory;
 import requestsLib.request_handling.RequestType;
 import requestsLib.request_handling.response.Response;
 
-public class Reciever extends RequestHandler {
+public class CustomRouter extends Router {
 
 	private TempRoom rm;
 
-	public Reciever(TempRoom rm){
+	public CustomRouter(TempRoom rm){
 		super();
 		this.rm = rm;
 	}

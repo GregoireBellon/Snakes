@@ -3,7 +3,7 @@ package runner;
 import java.io.IOException;
 import java.net.ServerSocket;
 
-import controller.Reciever;
+import controller.CustomRouter;
 import core.TempRoom;
 
 public class Server {
@@ -14,7 +14,7 @@ public class Server {
 		
 		ServerSocket so = new ServerSocket(44_444);
 		
-		Reciever rev = new Reciever(tr);
+		CustomRouter rev = new CustomRouter(tr);
 		
 		CommunicationBridge bridge = new CommunicationBridge(so, rev);
 		

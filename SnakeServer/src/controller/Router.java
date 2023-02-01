@@ -8,7 +8,7 @@ import requestsLib.request_handling.Request;
 import requestsLib.request_handling.RequestFactory;
 import requestsLib.request_handling.RequestType;
 
-public abstract class RequestHandler{
+public abstract class Router{
 
 
 	public void handle(Request r, Socket so) {

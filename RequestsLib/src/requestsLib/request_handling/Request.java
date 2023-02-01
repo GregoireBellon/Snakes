@@ -7,6 +7,8 @@ public abstract class Request {
 	protected byte[] content;
 	
 	
+	// [4 bytes header (lenght of content) ] [content]
+	
 	public Request(byte[] content){
 		this.content = content; 
 	}
@@ -18,6 +20,9 @@ public abstract class Request {
 	public abstract RequestType getType();
 	
 	public abstract byte[] getContent();
+	
+	
+	// Sendable is the content + the header with the 
 	
 	public byte[] getSendable() {
 		

@@ -6,4 +6,5 @@
  *
  */
 module SnakeServer {
+	requires RequestsLib;
 }

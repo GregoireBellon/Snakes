@@ -38,7 +38,6 @@ class TestSendRequests {
 		
 		message_sender.write(r.getSendable());
 		message_sender.flush();
-		
 	}
 	
 	@Test

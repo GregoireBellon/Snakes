@@ -4,7 +4,8 @@ public enum RequestType {
 	Connexion,
 	GameInfo,
 	Response,
-	Deconnexion;
+	Deconnexion,
+	ma_requete;
 	
 	public static RequestType fromByte(byte val) throws NoSuchFieldException{
 		try {

@@ -24,12 +24,10 @@ public class RequestFactory {
 		map.put(RequestType.GameInfo, GameInfo.class);
 		map.put(RequestType.Response, Response.class);
 		map.put(RequestType.Deconnexion, Deconnexion.class);
-
 		return map;
 
 	}
-
-
+	
 	public static Request fromBytes(byte[] content) throws NoSuchFieldException{
 
 		RequestType type = RequestType.fromByte(content[0]);

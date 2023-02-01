@@ -55,16 +55,16 @@ public class Response extends Request{
 		this.message = new String(curated_content, StandardCharsets.UTF_8);						
 	}
 	
+	
 	private void encodeRequest() {
 		
 		List<Byte> encoder = new ArrayList<Byte>();
 		
-		encoder.add(this.getType().toByte());
+		encoder.add(this.getType().toByte()); 
 		
 		encoder.add(this.getStatus().toByte());
 		
 		encoder.addAll(ByteConversion.arrayToByteList(this.message.getBytes()));
-		
 		
 		this.content = new byte[encoder.size()];
 		
@@ -73,7 +73,7 @@ public class Response extends Request{
 		}
 		
 	}
-	
+		
 	public ResponseStatus getStatus() {
 		return status;
 	}

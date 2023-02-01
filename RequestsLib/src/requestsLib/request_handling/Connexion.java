@@ -16,7 +16,6 @@ public class Connexion extends Request{
 		super(content);	
 		
 		this.parseContent();
-		
 	}
 	
 	public Connexion(String username, String password) {
@@ -33,7 +32,7 @@ public class Connexion extends Request{
 	}
 	
 	private void parseContent() {
-		
+				
 		byte[] curated_content = Arrays.copyOfRange(this.content, 1, this.content.length);
 		
 		String transcripted_content = new String(curated_content, StandardCharsets.UTF_8);		
@@ -52,7 +51,6 @@ public class Connexion extends Request{
 		encoder.add(this.getType().toByte());
 		
 		encoder.addAll(ByteConversion.arrayToByteList(new String(username+";"+password).getBytes()));
-		
 		
 		this.content = new byte[encoder.size()];
 		

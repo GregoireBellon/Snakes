@@ -11,5 +11,11 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry combineaccessrules="false" kind="src" path="/RequestsLib">
+		<attributes>
+			<attribute name="module" value="true"/>
+			<attribute name="add-exports" value="RequestsLib/requestsLib.helpers=SimpleClient:RequestsLib/requestsLib.request_handling=SimpleClient:RequestsLib/requestsLib.request_handling.response=SimpleClient"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

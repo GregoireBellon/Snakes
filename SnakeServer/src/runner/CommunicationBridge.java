@@ -6,7 +6,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import controller.RequestHandler;
+import controller.Router;
 import core.TempRoom;
 import requestsLib.request_handling.Request;
 import requestsLib.
@@ -14,10 +14,10 @@ request_handling.RequestFactory;
 
 public class CommunicationBridge {
 
-	private RequestHandler req_handler;
+	private Router req_handler;
 	private ServerSocket serv;
 	
-	CommunicationBridge(ServerSocket serv, RequestHandler req_handler){
+	CommunicationBridge(ServerSocket serv, Router req_handler){
 		this.req_handler = req_handler;
 		this.serv = serv;
 	}
