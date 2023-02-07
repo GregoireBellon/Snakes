@@ -5,6 +5,7 @@
  * @author etud
  *
  */
-module SnakeServer {
+module SnakeClient {
+	requires java.desktop;
 	requires RequestsLib;
 }

@@ -6,9 +6,10 @@ public abstract class Request {
 
 	protected byte[] content;
 	
-	
 	public Request(byte[] content){
-		this.content = content; 
+		
+		this.content = content;
+		
 	}
 	
 	public Request() {
@@ -17,7 +18,10 @@ public abstract class Request {
 	
 	public abstract RequestType getType();
 	
-	public abstract byte[] getContent();
+	public byte[] getContent() {
+		return new byte[] {this.getType().toByte()};
+		
+	}
 	
 	public byte[] getSendable() {
 		
@@ -30,9 +34,5 @@ public abstract class Request {
 		return wrapped.array();
 		
 	}
-	
-	public void send() {
-		
-	};
-			
+				
 }

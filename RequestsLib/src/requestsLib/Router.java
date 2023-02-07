@@ -1,4 +1,4 @@
-package controller;
+package requestsLib;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -8,7 +8,7 @@ import requestsLib.request_handling.Request;
 import requestsLib.request_handling.RequestFactory;
 import requestsLib.request_handling.RequestType;
 
-public abstract class RequestHandler{
+public abstract class Router{
 
 
 	public void handle(Request r, Socket so) {
@@ -40,6 +40,7 @@ public abstract class RequestHandler{
 
 					} catch (InterruptedException e) {
 						System.out.println("Le socket a été rompu : connexion terminée !");
+						e.printStackTrace();
 						try {
 							so.close();
 						} catch (IOException e1) {

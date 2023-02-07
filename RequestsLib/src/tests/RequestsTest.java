@@ -12,7 +12,10 @@ import org.junit.jupiter.api.Test;
 
 import requestsLib.request_handling.Connexion;
 import requestsLib.request_handling.Deconnexion;
+import requestsLib.request_handling.Request;
 import requestsLib.request_handling.RequestFactory;
+import requestsLib.request_handling.RequestType;
+import requestsLib.request_handling.game_infos.WhichMap;
 import requestsLib.request_handling.response.Response;
 import requestsLib.request_handling.response.ResponseStatus;
 
@@ -53,7 +56,18 @@ class RequestsTest {
 		assert retour.getStatus() == res.getStatus();
 		assert retour.getMessage().equals(res.getMessage());
 	}
+	
+	@Test
+	void testWhichMap() throws NoSuchFieldException {
+		WhichMap which = new WhichMap(null);
+		
 
+		byte[] content = which.getContent();
+		Request retour =  RequestFactory.fromBytes(content);
+
+		assert retour.getType() == RequestType.WhichMap;
+	}
+	
 	@Test
 	void testSeveralRequestsInOneConnexion() throws NoSuchFieldException, IOException {
 		Connexion co = new Connexion("Jhon", "Azerty");
@@ -84,7 +98,6 @@ class RequestsTest {
 		assert (co.getUsername().equals(co_retour.getUsername()) && co.getPassword().equals(co_retour.getPassword()));
 		assert (res.getStatus() == res_retour.getStatus() && res.getMessage().equals(res_retour.getMessage()));
 		assert (dec.getUsername().equals(dec_retour.getUsername()));
-
 	}
 
 }

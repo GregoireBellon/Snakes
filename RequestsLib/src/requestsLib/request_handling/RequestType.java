@@ -4,7 +4,13 @@ public enum RequestType {
 	Connexion,
 	GameInfo,
 	Response,
-	Deconnexion;
+	Deconnexion,
+	WhichMap, 
+	PlayerList,
+	ItemsList,
+	SnakePositions,
+	ItemsPositions
+	;
 	
 	public static RequestType fromByte(byte val) throws NoSuchFieldException{
 		try {

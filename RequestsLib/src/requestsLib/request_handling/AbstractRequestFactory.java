@@ -11,10 +11,9 @@ import java.nio.ByteBuffer;
 import java.util.HashMap;
 import java.util.Map;
 
-import requestsLib.request_handling.game_infos.WhichMap;
 import requestsLib.request_handling.response.Response;
 
-public class RequestFactory {
+public class AbstractRequestFactory {
 
 	//	Cette classe permet essentiellement de remplacer un switch case;
 	public static Map<RequestType, Class<? extends Request>> mapTypeToClass(){
@@ -25,7 +24,6 @@ public class RequestFactory {
 		map.put(RequestType.GameInfo, GameInfo.class);
 		map.put(RequestType.Response, Response.class);
 		map.put(RequestType.Deconnexion, Deconnexion.class);
-		map.put(RequestType.WhichMap, WhichMap.class);
 
 		return map;
 
@@ -75,13 +73,13 @@ public class RequestFactory {
 		wrapped = ByteBuffer.allocate(num);
 		wrapped.put(is.readNBytes(num));
 
-		return RequestFactory.fromBytes(wrapped.array());		
+		return AbstractRequestFactory.fromBytes(wrapped.array());		
 	}
 
 	public static Request fromSocket(Socket socket) throws IOException, NoSuchFieldException, InterruptedException {
 
 		try {
-			return RequestFactory.fromSendableStream(socket.getInputStream());
+			return AbstractRequestFactory.fromSendableStream(socket.getInputStream());
 
 		}catch(BufferUnderflowException e) {
 			//			Si le buffer ne peux plus lire de données, c'est que le socket a été fermé
