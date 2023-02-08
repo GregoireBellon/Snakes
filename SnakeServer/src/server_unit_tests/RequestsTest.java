@@ -1,6 +1,4 @@
-package tests;
-
-import static org.junit.jupiter.api.Assertions.*;
+package server_unit_tests;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -9,11 +7,11 @@ import java.nio.ByteBuffer;
 
 import org.junit.jupiter.api.Test;
 
-import requestsLib.request_handling.Connexion;
-import requestsLib.request_handling.Deconnexion;
-import requestsLib.request_handling.RequestFactory;
-import requestsLib.request_handling.response.Response;
-import requestsLib.request_handling.response.ResponseStatus;
+import core.requests.Connexion;
+import core.requests.Deconnexion;
+import core.requests.RequestFactory;
+import core.requests.response.Response;
+import core.requests.response.ResponseStatus;
 
 class RequestsTest {
 
@@ -21,9 +19,9 @@ class RequestsTest {
 	void testConnexion() throws NoSuchFieldException {
 
 		Connexion co = new Connexion("Jhon", "Azerty");
-		byte[] content = co.getContent();
+		byte[] content = co.fetchContent();
 
-		Connexion retour = (Connexion) RequestFactory.fromBytes(content);
+		Connexion retour = (Connexion) new RequestFactory().fromBytes(content);
 
 		assert retour.getUsername().equals(co.getUsername());
 		assert retour.getPassword().equals(co.getPassword());		
@@ -33,21 +31,20 @@ class RequestsTest {
 	@Test
 	void testDeconnexion() throws NoSuchFieldException {
 		Deconnexion co = new Deconnexion("Jhon");
-		byte[] content = co.getContent();
+		byte[] content = co.fetchContent();
 
-		Deconnexion retour = (Deconnexion) RequestFactory.fromBytes(content);
+		Deconnexion retour = (Deconnexion) new RequestFactory().fromBytes(content);
 
 		assert retour.getUsername().equals(co.getUsername());
 	}
-
 
 	@Test
 	void testResponse() throws NoSuchFieldException {
 
 		Response res = new Response(ResponseStatus.OK, "C ok, tout va bien $^^' / \\");
 
-		byte[] content = res.getContent();
-		Response retour = (Response) RequestFactory.fromBytes(content);
+		byte[] content = res.fetchContent();
+		Response retour = (Response) new RequestFactory().fromBytes(content);
 
 		assert retour.getStatus() == res.getStatus();
 		assert retour.getMessage().equals(res.getMessage());
@@ -71,13 +68,17 @@ class RequestsTest {
 
 		byte_buf.put(dec.getSendable());
 
+		RequestFactory req = new RequestFactory();
+		
 		InputStream is = new ByteArrayInputStream(byte_buf.array());
 
-		Connexion co_retour = (Connexion) RequestFactory.fromSendableStream(is);
+		
+		
+		Connexion co_retour = (Connexion) req.fromSendableStream(is);
 
-		Response res_retour = (Response) RequestFactory.fromSendableStream(is);
+		Response res_retour = (Response) req.fromSendableStream(is);
 
-		Deconnexion dec_retour = (Deconnexion) RequestFactory.fromSendableStream(is);
+		Deconnexion dec_retour = (Deconnexion) req.fromSendableStream(is);
 
 
 		assert (co.getUsername().equals(co_retour.getUsername()) && co.getPassword().equals(co_retour.getPassword()));

@@ -1,4 +1,4 @@
-package game.utils.items;
+package game.core;
 
 public class FeaturesItem implements Cloneable{
 

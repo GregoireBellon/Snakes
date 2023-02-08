@@ -15,10 +15,7 @@ import javax.swing.JPanel;
 
 import game.utils.AgentAction;
 import game.utils.ColorSnake;
-import game.utils.FeaturesSnake;
 import game.utils.Position;
-import game.utils.items.FeaturesItem;
-import game.utils.items.ItemType;
 
 
 /** 

@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 
 import game.controller.AbstractController;
-import game.utils.FeaturesSnake;
-import game.utils.items.FeaturesItem;
 
 public class ViewSnakeGame extends GameView {
 

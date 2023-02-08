@@ -10,10 +10,7 @@ import java.util.ArrayList;
 
 import game.utils.AgentAction;
 import game.utils.ColorSnake;
-import game.utils.FeaturesSnake;
 import game.utils.Position;
-import game.utils.items.FeaturesItem;
-import game.utils.items.ItemType;
 
 
 

@@ -4,16 +4,10 @@ import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-import behavior.AgentBehavior;
-import behavior.RandomBehavior;
 import game.core.event.handler.EventType;
 import game.utils.AgentAction;
-import game.utils.FeaturesSnake;
 import game.utils.MoveUtils;
 import game.utils.Position;
-import game.utils.Snake;
-import game.utils.items.Item;
-import game.utils.items.ItemFactory;
 
 public class SnakeGame extends Game {
 

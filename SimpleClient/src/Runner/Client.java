@@ -1,14 +1,12 @@
 package Runner;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.net.Socket;
 
-import requestsLib.request_handling.Connexion;
-import requestsLib.request_handling.Deconnexion;
-import requestsLib.request_handling.Request;
+import core.requests.Connexion;
+import core.requests.Deconnexion;
+import request_handling.Request;
 
 public class Client {
 

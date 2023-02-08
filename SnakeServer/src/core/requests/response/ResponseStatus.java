@@ -1,4 +1,4 @@
-package requestsLib.request_handling.response;
+package core.requests.response;
 
 public enum ResponseStatus {
 	OK,

@@ -3,7 +3,6 @@ package game.controller;
 import java.awt.Frame;
 import java.util.List;
 
-import behavior.AgentBehavior;
 import game.core.InputMap;
 import game.core.SnakeGame;
 import game.core.event.handler.EventType;

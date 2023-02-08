@@ -6,4 +6,5 @@
  *
  */
 module SnakeClient {
+	requires java.desktop;
 }

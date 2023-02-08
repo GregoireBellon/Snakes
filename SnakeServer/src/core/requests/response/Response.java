@@ -1,15 +1,16 @@
-package requestsLib.request_handling.response;
+package core.requests.response;
 
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import requestsLib.helpers.ByteConversion;
-import requestsLib.request_handling.RequestType;
-import requestsLib.request_handling.Request;
+import helpers.ByteConversion;
+import request_handling.Request;
 
 public class Response extends Request{
+
+	public static final int ID = 2;	
 
 	private ResponseStatus status;
 	private String message;
@@ -17,7 +18,6 @@ public class Response extends Request{
 	
 	public Response(byte[] content){
 		super(content);
-		this.parseContent();
 	}
 	
 	public Response(ResponseStatus status, String message){
@@ -25,53 +25,36 @@ public class Response extends Request{
 		
 		this.status = status; 
 		this.message = message;
-		
-		this.parseContent();
 	}
-	
-	@Override
-	public RequestType getType() {
-		return RequestType.Response;
-	}
-
-	@Override
-	public byte[] getContent() {
-		if(this.content == null)
-			encodeRequest();
 		
-		return this.content;
-	}
-	
-	private void parseContent() {
-		
+	protected void parseContent() {
 		
 		try {
-			this.status = ResponseStatus.fromByte(this.getContent()[1]);
+			this.status = ResponseStatus.fromByte(this.getContent()[0]);
 		} catch (NoSuchFieldException e) {
 			this.status = ResponseStatus.Other;
 		}
 		
-		byte[] curated_content = Arrays.copyOfRange(this.getContent(), 2, this.getContent().length);
+		byte[] curated_content = Arrays.copyOfRange(this.getContent(), 1, this.getContent().length);
 		this.message = new String(curated_content, StandardCharsets.UTF_8);						
 	}
 	
 	
-	private void encodeRequest() {
+	protected byte[] encodeRequest() {
 		
 		List<Byte> encoder = new ArrayList<Byte>();
-		
-		encoder.add(this.getType().toByte()); 
-		
+				
 		encoder.add(this.getStatus().toByte());
 		
 		encoder.addAll(ByteConversion.arrayToByteList(this.message.getBytes()));
 		
-		this.content = new byte[encoder.size()];
+		byte[] returned = new byte[encoder.size()];
 		
 		for(int i = 0; i < encoder.size(); i++) {
-			content[i] = encoder.get(i).byteValue();
+			returned[i] = encoder.get(i).byteValue();
 		}
 		
+		return returned;
 	}
 		
 	public ResponseStatus getStatus() {
@@ -82,5 +65,9 @@ public class Response extends Request{
 		return message;
 	}
 
+	@Override
+	public int getID() {
+		return Response.ID;
+	}
 	
 }

@@ -1,7 +1,5 @@
 package game.core;
 
-import game.controller.GameControllerSimple;
-
 public class SimpleGame extends Game {
 
 	private GameControllerSimple controller;

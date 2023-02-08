@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import behavior.AgentBehavior;
-import behavior.PlayerBehavior;
 import game.controller.SnakeController;
 import game.core.InputMap;
 import game.core.SnakeGame;

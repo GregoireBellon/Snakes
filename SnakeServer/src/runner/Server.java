@@ -5,6 +5,8 @@ import java.net.ServerSocket;
 
 import controller.CustomRouter;
 import core.TempRoom;
+import core.requests.RequestFactory;
+import server_tools.CommunicationBridge;
 
 public class Server {
 
@@ -14,7 +16,7 @@ public class Server {
 		
 		ServerSocket so = new ServerSocket(44_444);
 		
-		CustomRouter rev = new CustomRouter(tr);
+		CustomRouter rev = new CustomRouter(tr, new RequestFactory());
 		
 		CommunicationBridge bridge = new CommunicationBridge(so, rev);
 		

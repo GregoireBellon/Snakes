@@ -1,26 +1,24 @@
 package controller;
 
-import java.io.IOException;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Function;
-
 import core.TempRoom;
-import requestsLib.request_handling.Connexion;
-import requestsLib.request_handling.Deconnexion;
-import requestsLib.request_handling.GameInfo;
-import requestsLib.request_handling.Request;
-import requestsLib.request_handling.RequestFactory;
-import requestsLib.request_handling.RequestType;
-import requestsLib.request_handling.response.Response;
+import core.requests.Connexion;
+import core.requests.Deconnexion;
+import core.requests.response.Response;
+import request_handling.AbstractRequestFactory;
+import request_handling.FunctionRequest;
+import request_handling.Request;
+import request_handling.Router;
+
 
 public class CustomRouter extends Router {
 
 	private TempRoom rm;
 
-	public CustomRouter(TempRoom rm){
-		super();
+	public CustomRouter(TempRoom rm, AbstractRequestFactory req_fac){
+		super(req_fac);
 		this.rm = rm;
 	}
 
@@ -33,11 +31,6 @@ public class CustomRouter extends Router {
 		Deconnexion c = (Deconnexion) r;
 		rm.deconnexion(c.getUsername());
 	};
-
-	private FunctionRequest handle_game_info = (Request r, Socket soc) -> {
-		GameInfo c = (GameInfo) r;
-		System.out.println("Requête d'info de game");
-	};
 	
 	private FunctionRequest handle_response = (Request r, Socket soc) -> {
 		Response c = (Response) r;
@@ -46,12 +39,11 @@ public class CustomRouter extends Router {
 
 
 	@Override
-	public Map<RequestType, FunctionRequest> requestRoutes() {
-		Map<RequestType, FunctionRequest> routes = new HashMap<RequestType, FunctionRequest>();
-		routes.put(RequestType.Connexion, this.handle_connexion);
-		routes.put(RequestType.Deconnexion, this.handle_deconnexion);
-		routes.put(RequestType.GameInfo, this.handle_game_info);
-		routes.put(RequestType.Response, this.handle_response);
+	public Map<Integer, FunctionRequest> requestRoutes() {
+		Map<Integer, FunctionRequest> routes = new HashMap<Integer, FunctionRequest>();
+		routes.put(Connexion.ID, this.handle_connexion);
+		routes.put(Deconnexion.ID, this.handle_deconnexion);
+		routes.put(Response.ID, this.handle_response);
 		return routes;
 	}
 

@@ -1,6 +1,4 @@
-package tests;
-import static org.junit.jupiter.api.Assertions.*;
-
+package simple_client_unit_tests;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.net.Socket;
@@ -10,8 +8,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import requestsLib.request_handling.Connexion;
-import requestsLib.request_handling.Deconnexion;
+import core.requests.Connexion;
+import core.requests.Deconnexion;
 
 class TestSendRequests {
 

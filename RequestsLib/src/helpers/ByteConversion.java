@@ -1,4 +1,4 @@
-package requestsLib.helpers;
+package helpers;
 
 import java.util.ArrayList;
 import java.util.List;

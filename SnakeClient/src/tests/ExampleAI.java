@@ -3,9 +3,6 @@ package tests;
 import java.util.ArrayList;
 import java.util.List;
 
-import behavior.AgentBehavior;
-import behavior.PathSearchingBehavior;
-import behavior.searchPathAlgorithm.AStar;
 import game.controller.SnakeController;
 import game.core.InputMap;
 import game.core.SnakeGame;

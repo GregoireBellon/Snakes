@@ -14,7 +14,13 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/RequestsLib">
 		<attributes>
 			<attribute name="module" value="true"/>
-			<attribute name="add-exports" value="RequestsLib/requestsLib.helpers=SimpleClient:RequestsLib/requestsLib.request_handling=SimpleClient:RequestsLib/requestsLib.request_handling.response=SimpleClient"/>
+			<attribute name="add-exports" value="RequestsLib/helpers=SimpleClient:RequestsLib/request_handling=SimpleClient:RequestsLib/server_tools=SimpleClient"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry combineaccessrules="false" kind="src" path="/SnakeServer">
+		<attributes>
+			<attribute name="module" value="true"/>
+			<attribute name="add-exports" value="SnakeServer/core.requests=SimpleClient:SnakeServer/core.requests.response=SimpleClient"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="output" path="bin"/>

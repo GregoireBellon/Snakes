@@ -1,24 +1,27 @@
-package controller;
+package request_handling;
 
 import java.io.IOException;
 import java.net.Socket;
 import java.util.Map;
 
-import requestsLib.request_handling.Request;
-import requestsLib.request_handling.RequestFactory;
-import requestsLib.request_handling.RequestType;
-
 public abstract class Router{
 
+	
+	private AbstractRequestFactory factory;
+	
 
+	public Router(AbstractRequestFactory factory) {
+		this.factory = factory;
+	}
+	
+	
 	public void handle(Request r, Socket so) {
-		Map<RequestType, FunctionRequest> routes = this.requestRoutes();
+		
+		Map<Integer, FunctionRequest> routes = this.requestRoutes();
 
-		if(routes.get(r.getType())!=null) {
+		if(routes.get(r.getID())!=null) {
 			// Appel de la route
-
-			routes.get(r.getType()).fun(r, so);
-
+			routes.get(r.getID()).fun(r, so);
 		}
 		else {
 			System.out.println("Requête générique, ignorée");
@@ -32,7 +35,9 @@ public abstract class Router{
 			public void run() {
 				while(true) {
 					try {
-						handle(RequestFactory.fromSocket(so), so);
+
+						handle(factory.fromSocket(so), so);
+						
 					} catch (NoSuchFieldException | IOException e) {
 						System.out.println("Erreur de lecture de la requête de : "+so.getInetAddress());
 						e.printStackTrace();
@@ -57,5 +62,5 @@ public abstract class Router{
 
 	}
 
-	public abstract Map<RequestType, FunctionRequest> requestRoutes();
+	public abstract Map<Integer, FunctionRequest> requestRoutes();
 }

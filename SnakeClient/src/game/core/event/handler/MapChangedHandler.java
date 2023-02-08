@@ -4,19 +4,19 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
+import game.core.FeaturesItem;
+import game.core.FeaturesSnake;
+import game.core.InputMap;
 import game.core.SnakeGame;
-import game.utils.FeaturesSnake;
-import game.utils.items.FeaturesItem;
 import game.view.ViewSnakeGame;
 
 public class MapChangedHandler implements PropertyChangeListener {
 
-	private ViewSnakeGame view;
+	private InputMap map;
 	private SnakeGame game; 
 
-	public MapChangedHandler(ViewSnakeGame view, SnakeGame game) {
-		this.view = view;
-		this.game = game;
+	public MapChangedHandler(InputMap map) {
+		this.map = map;
 	}
 
 	@Override
