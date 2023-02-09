@@ -1,4 +1,4 @@
-package game.utils;
+package core.server_game.utils;
 
 
 

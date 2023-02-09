@@ -9,7 +9,13 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/RequestsLib">
 		<attributes>
 			<attribute name="module" value="true"/>
-			<attribute name="add-exports" value="RequestsLib/requestsLib.helpers=SnakeClient:RequestsLib/requestsLib.request_handling=SnakeClient:RequestsLib/requestsLib.request_handling.response=SnakeClient"/>
+			<attribute name="add-exports" value="RequestsLib/helpers=SnakeClient:RequestsLib/request_handling=SnakeClient"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry combineaccessrules="false" kind="src" path="/SnakeServer">
+		<attributes>
+			<attribute name="module" value="true"/>
+			<attribute name="add-exports" value="SnakeServer/core.requests=SnakeClient:SnakeServer/core.requests.response=SnakeClient:SnakeServer/core.server_game.utils=SnakeClient"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="output" path="bin"/>

@@ -8,8 +8,9 @@ public abstract class AbstractController {
 
 	public AbstractController(Game game) {
 		this.game = game;
-		
 	}
+	
+	public AbstractController() {}
 
 	public void restart() {
 		game.pause();
@@ -39,6 +40,10 @@ public abstract class AbstractController {
 
 	public Game getGame(){
 		return game;
+	}
+	
+	public void setGame(Game game) {
+		this.game = game;
 	}
 	
 

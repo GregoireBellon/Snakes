@@ -9,9 +9,11 @@ import org.junit.jupiter.api.Test;
 
 import core.requests.Connexion;
 import core.requests.Deconnexion;
+import core.requests.PlayerInput;
 import core.requests.RequestFactory;
 import core.requests.response.Response;
 import core.requests.response.ResponseStatus;
+import core.server_game.utils.AgentAction;
 
 class RequestsTest {
 
@@ -50,6 +52,18 @@ class RequestsTest {
 		assert retour.getMessage().equals(res.getMessage());
 	}
 
+	
+	@Test
+	void testPlayerInput() throws NoSuchFieldException {
+		PlayerInput p = new PlayerInput(AgentAction.MOVE_LEFT);
+		
+		byte[] content = p.fetchContent();
+		PlayerInput new_p = (PlayerInput) new RequestFactory().fromBytes(content);
+
+		assert new_p.getAction() == p.getAction();
+
+	}
+	
 	@Test
 	void testSeveralRequestsInOneConnexion() throws NoSuchFieldException, IOException {
 		Connexion co = new Connexion("Jhon", "Azerty");

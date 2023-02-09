@@ -18,7 +18,7 @@ public class RequestFactory extends AbstractRequestFactory {
 
 	@SuppressWarnings("unchecked")
 	public Class<? extends Request>[] mapReqIdToClass(){
-		return new Class[] {Connexion.class, Deconnexion.class, Response.class};
+		return new Class[] {Connexion.class, Deconnexion.class, Response.class, WhichMap.class, PlayerInput.class};
 	}
 
 	public Request fromBytes(byte[] content) throws NoSuchFieldException{

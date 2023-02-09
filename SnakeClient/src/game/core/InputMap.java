@@ -8,8 +8,9 @@ import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import game.utils.AgentAction;
+import core.server_game.utils.AgentAction;
 import game.utils.ColorSnake;
+import game.utils.ItemType;
 import game.utils.Position;
 
 

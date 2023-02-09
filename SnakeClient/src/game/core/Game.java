@@ -29,6 +29,10 @@ public abstract class Game implements Runnable, Observable{
 		this.SLEEP_TIME_MS = this.BASE_SLEEP_TIME_MS;
 		this.listeners = new HashMap<EventType, ArrayList<PropertyChangeListener>>();
 	}
+	
+	public Game() {
+		this(Integer.MAX_VALUE);
+	}
 
 	public void init() {
 		turn = 0;

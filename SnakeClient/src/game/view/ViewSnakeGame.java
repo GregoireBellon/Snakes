@@ -4,10 +4,13 @@ import java.awt.Dimension;
 import java.awt.GraphicsEnvironment;
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFrame;
 
 import game.controller.AbstractController;
+import game.core.FeaturesItem;
+import game.core.FeaturesSnake;
 
 public class ViewSnakeGame extends GameView {
 
@@ -30,8 +33,12 @@ public class ViewSnakeGame extends GameView {
 		
 		getFrame().setLocation(dx,dy);
 		getFrame().setVisible(true);
-		getFrame().add(this.panel_game);
-		getFrame().setSize(panel_game.getSizeX() * 40 , panel_game.getSizeY()*40);
+		
+		if(panel_game != null) {			
+			getFrame().add(this.panel_game);
+			getFrame().setSize(panel_game.getSizeX() * 40 , panel_game.getSizeY()*40);
+		}
+		
 
 	}
 	
@@ -45,7 +52,7 @@ public class ViewSnakeGame extends GameView {
 	}
 	
 	
-	public void updateInfoGame(ArrayList<FeaturesSnake> featuresSnakes , ArrayList<FeaturesItem> featuresItems) {
+	public void updateInfoGame(List<FeaturesSnake> featuresSnakes , List<FeaturesItem> featuresItems) {
 		this.panel_game.updateInfoGame(featuresSnakes, featuresItems);
 	}
 	

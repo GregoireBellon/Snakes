@@ -30,8 +30,8 @@ public class SnakeController extends AbstractController {
 
 		SnakeMovedHandler move_handler = new SnakeMovedHandler(view_snake);
 
-//		game.subscribe(EventType.MAP_CHANGED, new MapChangedHandler(view_snake, game));
-//		game.subscribe(EventType.SNAKE_MOVED, move_handler);
+		game.subscribe(EventType.MAP_CHANGED, new MapChangedHandler(view_snake, game));
+		game.subscribe(EventType.SNAKE_MOVED, move_handler);
 //		game.subscribe(EventType.STEP, new TurnChangedHandler(game, view_command));
 		
 	}

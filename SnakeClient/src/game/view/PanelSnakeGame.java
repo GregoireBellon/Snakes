@@ -9,12 +9,16 @@ import java.awt.image.RescaleOp;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-import game.utils.AgentAction;
+import core.server_game.utils.AgentAction;
+import game.core.FeaturesItem;
+import game.core.FeaturesSnake;
 import game.utils.ColorSnake;
+import game.utils.ItemType;
 import game.utils.Position;
 
 
@@ -45,8 +49,8 @@ public class PanelSnakeGame extends JPanel{
 	float[] contraste = { 0, 0, 0, 1.0f };
 
 
-	protected ArrayList<FeaturesSnake> featuresSnakes = new ArrayList<FeaturesSnake>();	
-	protected ArrayList<FeaturesItem> featuresItems = new ArrayList<FeaturesItem>();
+	protected List<FeaturesSnake> featuresSnakes = new ArrayList<FeaturesSnake>();	
+	protected List<FeaturesItem> featuresItems = new ArrayList<FeaturesItem>();
 
 	
 	private boolean[][] walls;
@@ -252,7 +256,7 @@ public class PanelSnakeGame extends JPanel{
 
 
 
-	public void updateInfoGame( ArrayList<FeaturesSnake> featuresSnakes , ArrayList<FeaturesItem> featuresItems) {
+	public void updateInfoGame( List<FeaturesSnake> featuresSnakes , List<FeaturesItem> featuresItems) {
 		
 		this.featuresSnakes = featuresSnakes;
 		this.featuresItems = featuresItems;

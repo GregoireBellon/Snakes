@@ -2,7 +2,7 @@ package game.core;
 
 import java.util.ArrayList;
 
-import game.utils.AgentAction;
+import core.server_game.utils.AgentAction;
 import game.utils.ColorSnake;
 import game.utils.Position;
 

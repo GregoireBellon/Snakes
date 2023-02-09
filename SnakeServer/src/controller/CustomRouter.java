@@ -6,6 +6,8 @@ import java.util.Map;
 import core.TempRoom;
 import core.requests.Connexion;
 import core.requests.Deconnexion;
+import core.requests.PlayerInput;
+import core.requests.WhichMap;
 import core.requests.response.Response;
 import request_handling.AbstractRequestFactory;
 import request_handling.FunctionRequest;
@@ -36,6 +38,16 @@ public class CustomRouter extends Router {
 		Response c = (Response) r;
 		System.out.println("Requête de réponse");
 	};
+	
+	private FunctionRequest handle_whichmap = (Request r, Socket soc) -> {
+//		WhichMap w = (WhichMap) r;
+		System.out.println("Requête whichmap reçue");
+	};
+	
+	private FunctionRequest handle_playerinput = (Request r, Socket soc) -> {
+		PlayerInput w = (PlayerInput) r;
+		System.out.println("Input from " + soc.getInetAddress() + " : " + w.getAction());
+	};
 
 
 	@Override
@@ -44,6 +56,8 @@ public class CustomRouter extends Router {
 		routes.put(Connexion.ID, this.handle_connexion);
 		routes.put(Deconnexion.ID, this.handle_deconnexion);
 		routes.put(Response.ID, this.handle_response);
+		routes.put(WhichMap.ID, this.handle_whichmap);
+		routes.put(PlayerInput.ID, handle_playerinput);
 		return routes;
 	}
 

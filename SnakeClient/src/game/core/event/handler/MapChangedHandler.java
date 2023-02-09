@@ -3,6 +3,7 @@ package game.core.event.handler;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
+import java.util.List;
 
 import game.core.FeaturesItem;
 import game.core.FeaturesSnake;
@@ -13,21 +14,18 @@ import game.view.ViewSnakeGame;
 public class MapChangedHandler implements PropertyChangeListener {
 
 	private InputMap map;
-	private SnakeGame game; 
+	private ViewSnakeGame view;
 
-	public MapChangedHandler(InputMap map) {
+	public MapChangedHandler(InputMap map, ViewSnakeGame view) {
 		this.map = map;
+		this.view = view;
 	}
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 			
-		ArrayList<FeaturesItem> new_fi = new ArrayList<FeaturesItem>();
-		ArrayList<FeaturesSnake> new_fs = new ArrayList<FeaturesSnake>();
-			
-		game.getItems().forEach(it -> new_fi.add(it.getFeaturesItem()));
-		game.getAgents().forEach(ag -> new_fs.add(ag.getFeaturesSnake()));
-			
+		List<FeaturesItem> new_fi = map.getStart_items();
+		List<FeaturesSnake> new_fs = map.getStart_snakes();
 			
 		view.updateInfoGame(new_fs, new_fi);
 		view.update();
