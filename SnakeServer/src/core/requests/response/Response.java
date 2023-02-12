@@ -27,20 +27,25 @@ public class Response extends Request{
 		this.message = message;
 	}
 		
-	protected void parseContent() {
+	@Override
+	protected byte[] parseContent(byte[] given_content) {
+		
+		byte[] content = super.parseContent(given_content);
 		
 		try {
-			this.status = ResponseStatus.fromByte(this.getContent()[0]);
+			this.status = ResponseStatus.fromByte(content[0]);
 		} catch (NoSuchFieldException e) {
 			this.status = ResponseStatus.Other;
 		}
 		
-		byte[] curated_content = Arrays.copyOfRange(this.getContent(), 1, this.getContent().length);
-		this.message = new String(curated_content, StandardCharsets.UTF_8);						
+		byte[] curated_content = Arrays.copyOfRange(content, 1, content.length);
+		this.message = new String(curated_content, StandardCharsets.UTF_8);
+		
+		return new byte[] {};						
 	}
 	
-	
-	protected byte[] encodeRequest() {
+	@Override
+	protected byte[] encodeRequest(byte[] base) {
 		
 		List<Byte> encoder = new ArrayList<Byte>();
 				
@@ -54,7 +59,7 @@ public class Response extends Request{
 			returned[i] = encoder.get(i).byteValue();
 		}
 		
-		return returned;
+		return super.encodeRequest(returned);
 	}
 		
 	public ResponseStatus getStatus() {

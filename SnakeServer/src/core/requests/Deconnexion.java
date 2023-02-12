@@ -27,19 +27,20 @@ public class Deconnexion extends Request{
 		return Deconnexion.ID;
 	}
 	
-	protected void parseContent() {
+	protected byte[] parseContent(byte[] given_content) {
 		
-		byte[] content = this.getContent();
+		byte[] content = super.parseContent(given_content);
 		
 		String transcripted_content = new String(content, StandardCharsets.UTF_8);		
 				
 		this.username = transcripted_content;
 		
+		return new byte[] {};	
 	}
 	
-	protected byte[] encodeRequest() {
+	protected byte[] encodeRequest(byte[] base) {
 						
-		return this.username.getBytes();
+		return super.encodeRequest(this.username.getBytes());
 				
 	}
 		
