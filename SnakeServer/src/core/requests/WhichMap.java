@@ -23,6 +23,7 @@ public class WhichMap extends MayBeResponse {
 	
 	public WhichMap() {
 		super(false);
+		this.map_selected = "";
 	}
 	
 	
