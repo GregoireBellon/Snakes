@@ -3,17 +3,9 @@ package game.controller;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
-
 import core.requests.RequestFactory;
 import core.requests.WhichMap;
-import game.core.Game;
-import game.core.InputMap;
-import game.core.RemoteSnakeGame;
-import game.core.SnakeGame;
-import game.core.event.handler.EventType;
-import game.core.event.handler.MapChangedHandler;
 import game.core.event.handler.SnakeMovedHandler;
-import game.view.PanelSnakeGame;
 import game.view.ViewSnakeGame;
 import helpers.Sender;
 

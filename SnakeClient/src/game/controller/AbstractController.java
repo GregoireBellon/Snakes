@@ -1,6 +1,6 @@
 package game.controller;
 
-import game.core.Game;
+import core.Game;
 
 public abstract class AbstractController {
 	private Game game;

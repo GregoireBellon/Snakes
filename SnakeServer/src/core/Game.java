@@ -1,5 +1,4 @@
-package game.core;
-
+package core;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -8,8 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import game.core.event.Observable;
-import game.core.event.handler.EventType;
+import core.event.Observable;
+import core.event.handler.EventType;
 
 public abstract class Game implements Runnable, Observable{
 

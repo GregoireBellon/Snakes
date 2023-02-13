@@ -3,14 +3,13 @@ package game.view;
 import java.awt.Dimension;
 import java.awt.GraphicsEnvironment;
 import java.awt.Point;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
 
 import game.controller.AbstractController;
-import game.core.FeaturesItem;
-import game.core.FeaturesSnake;
+import utils.FeaturesSnake;
+import utils.items.FeaturesItem;
 
 public class ViewSnakeGame extends GameView {
 

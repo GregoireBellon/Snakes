@@ -1,14 +1,9 @@
 package game.controller;
 
-import java.awt.Frame;
-import java.util.List;
-
-import game.core.InputMap;
-import game.core.SnakeGame;
-import game.core.event.handler.EventType;
-import game.core.event.handler.MapChangedHandler;
+import core.InputMap;
+import core.SnakeGame;
+import core.event.handler.EventType;
 import game.core.event.handler.SnakeMovedHandler;
-import game.core.event.handler.TurnChangedHandler;
 import game.view.PanelSnakeGame;
 import game.view.ViewSnakeGame;
 
@@ -30,7 +25,7 @@ public class SnakeController extends AbstractController {
 
 		SnakeMovedHandler move_handler = new SnakeMovedHandler(view_snake);
 
-		game.subscribe(EventType.MAP_CHANGED, new MapChangedHandler(view_snake, game));
+//		game.subscribe(EventType.MAP_CHANGED, new MapChangedHandler(game.getMap(), game));
 		game.subscribe(EventType.SNAKE_MOVED, move_handler);
 //		game.subscribe(EventType.STEP, new TurnChangedHandler(game, view_command));
 		

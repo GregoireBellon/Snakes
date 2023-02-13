@@ -3,6 +3,7 @@ package game.core.event.handler;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+import core.event.handler.EventType;
 import game.view.ViewSnakeGame;
 
 public class SnakeMovedHandler implements PropertyChangeListener {

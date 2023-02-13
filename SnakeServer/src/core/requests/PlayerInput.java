@@ -1,7 +1,7 @@
 package core.requests;
 
-import core.server_game.utils.AgentAction;
 import request_handling.Request;
+import utils.AgentAction;
 
 public class PlayerInput extends Request {
 
@@ -23,18 +23,24 @@ public class PlayerInput extends Request {
 	}
 
 	@Override
-	protected void parseContent() {
-		byte[] content = this.getContent();
+	protected byte[] parseContent(byte[] given_content) {
+		
+		byte[] content = super.parseContent(given_content);
+		
 		try {
 			this.action = AgentAction.values()[content[0]];			
 		}catch (ArrayIndexOutOfBoundsException e) {
 			System.err.println("Recieved unknown agent action");
 		}
+		
+		return new byte[] {};
 	}
 
 	@Override
-	protected byte[] encodeRequest() {
-		return new byte[] {(byte)this.action.ordinal()};
+	protected byte[] encodeRequest(byte[] base) {
+		
+		return super.encodeRequest(new byte[] {(byte)this.action.ordinal()});
+		
 	}
 
 	public AgentAction getAction() {

@@ -1,38 +1,33 @@
-package game.core;
+package core;
 
 import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-import core.server_game.utils.AgentAction;
-import game.core.event.handler.EventType;
-import game.utils.MoveUtils;
-import game.utils.Position;
+import behavior.AgentBehavior;
+import behavior.RandomBehavior;
+import core.event.handler.EventType;
+import utils.MoveUtils;
+import utils.AgentAction;
+import utils.FeaturesSnake;
+import utils.Position;
+import utils.Snake;
+import utils.items.Item;
+import utils.items.ItemFactory;
 
 public class LocalSnakeGame extends SnakeGame {
 
 	private List<Snake> agents; 
 	private List<AgentBehavior> behaviors; 
-
-	private InputMap map; 
-	private InputMap start_map; 
-
+	
 	private List<Item> items; 
 
 	public LocalSnakeGame(int max_turn, InputMap map) {
-		super(max_turn);
-
-		this.start_map = new InputMap(map);
-		this.map = new InputMap(map);
-
-		this.items = new ArrayList<Item>();
-
-		this.agents = new ArrayList<Snake>();
+		super(max_turn, map);
 		this.behaviors = new ArrayList<AgentBehavior>();
-	}
 
-	public void resetMap() {
-			this.map = new InputMap(start_map);
+//		this.items = new ArrayList<Item>();
+//		this.agents = new ArrayList<Snake>();
 	}
 
 	@Override
@@ -41,11 +36,11 @@ public class LocalSnakeGame extends SnakeGame {
 		this.items = new ArrayList<Item>();
 
 		ItemFactory item_factory = new ItemFactory(this);
-		this.map.getStart_items().forEach(item -> {
+		this.getMap().getStart_items().forEach(item -> {
 			items.add(item_factory.createItem(item));
 		});;
 
-		ArrayList<FeaturesSnake> snakes = this.map.getStart_snakes();
+		ArrayList<FeaturesSnake> snakes = this.getMap().getStart_snakes();
 
 		for(int i = 0; i < snakes.size(); i++) {
 
@@ -63,7 +58,7 @@ public class LocalSnakeGame extends SnakeGame {
 	public void takeTurn() {
 
 		for(Snake agent : agents) {
-			AgentAction aa = agent.play(map);
+			AgentAction aa = agent.play(this.getMap());
 			//			System.out.println("joué : "+aa.toString());
 			if(!agent.getAlive()) continue; 			
 
@@ -80,7 +75,7 @@ public class LocalSnakeGame extends SnakeGame {
 			caseEffects(agent);
 
 		}
-		notifySubscribers(EventType.SNAKE_MOVED, new PropertyChangeEvent(map, EventType.SNAKE_MOVED.toString(), 0, 1));
+		notifySubscribers(EventType.SNAKE_MOVED, new PropertyChangeEvent(this.getMap(), EventType.SNAKE_MOVED.toString(), 0, 1));
 
 	}
 
@@ -91,21 +86,21 @@ public class LocalSnakeGame extends SnakeGame {
 
 		if(item != null) {
 			items.remove(item);
-			map.getStart_items().remove(item.getFeaturesItem());
+			this.getMap().getStart_items().remove(item.getFeaturesItem());
 			item.effect(agent);
 		}
 	}
 
 	private boolean isLegalMove(Position current_pos, AgentAction move) {
-		return MoveUtils.isLegalMove(current_pos, move, this.map, this.agents);	
+		return MoveUtils.isLegalMove(current_pos, move, this.getMap(), this.agents);	
 		}
 
 	private boolean isLegalPos(Position pos) {
-		return MoveUtils.isLegalPos(pos, this.map, this.agents);
+		return MoveUtils.isLegalPos(pos, this.getMap(), this.agents);
 	}
 
 	private Position calcNextPos(Position current_pos, AgentAction move) {
-		return MoveUtils.calcNextPos(current_pos, move, this.map);
+		return MoveUtils.calcNextPos(current_pos, move, this.getMap());
 	}
 
 	private void moveAgent(Snake agent, AgentAction move) {
@@ -127,10 +122,6 @@ public class LocalSnakeGame extends SnakeGame {
 		System.out.println("Fin du jeu");
 	}
 
-	public InputMap getMap() {
-		return this.map;
-	}
-
 	public List<AgentBehavior> getBehaviors() {
 		return this.behaviors;
 	}
@@ -148,7 +139,7 @@ public class LocalSnakeGame extends SnakeGame {
 	}
 	
 	public void addItem(Item it) {
-		this.map.getStart_items().add(it.getFeaturesItem());
+		this.getMap().getStart_items().add(it.getFeaturesItem());
 		this.items.add(it);
 	}
 

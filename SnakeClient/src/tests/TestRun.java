@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.UnknownHostException;
 
 import game.controller.RemoteSnakeController;
-import game.core.RemoteSnakeGame;
+import game.core.RemoteClientSnakeGame;
 
 public class TestRun {
 	

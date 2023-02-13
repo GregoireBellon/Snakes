@@ -15,7 +15,7 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/SnakeServer">
 		<attributes>
 			<attribute name="module" value="true"/>
-			<attribute name="add-exports" value="SnakeServer/core.requests=SnakeClient:SnakeServer/core.requests.response=SnakeClient:SnakeServer/core.server_game.utils=SnakeClient"/>
+			<attribute name="add-exports" value="SnakeServer/core.requests=SnakeClient:SnakeServer/core.requests.response=SnakeClient:SnakeServer/core.server_game.utils=SnakeClient:SnakeServer/core=SnakeClient:SnakeServer/core.event=SnakeClient:SnakeServer/core.event.handler=SnakeClient:SnakeServer/utils=SnakeClient:SnakeServer/utils.items=SnakeClient"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="output" path="bin"/>

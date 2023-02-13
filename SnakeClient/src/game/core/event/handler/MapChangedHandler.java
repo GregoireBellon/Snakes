@@ -2,14 +2,12 @@ package game.core.event.handler;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
 import java.util.List;
 
-import game.core.FeaturesItem;
-import game.core.FeaturesSnake;
-import game.core.InputMap;
-import game.core.SnakeGame;
+import core.InputMap;
 import game.view.ViewSnakeGame;
+import utils.FeaturesSnake;
+import utils.items.FeaturesItem;
 
 public class MapChangedHandler implements PropertyChangeListener {
 

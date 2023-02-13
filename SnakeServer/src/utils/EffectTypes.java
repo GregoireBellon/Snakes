@@ -1,4 +1,4 @@
-package game.utils;
+package utils;
 
 public enum EffectTypes {
 	SICK, INVINCIBLE

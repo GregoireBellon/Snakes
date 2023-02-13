@@ -11,9 +11,10 @@ import core.requests.Connexion;
 import core.requests.Deconnexion;
 import core.requests.PlayerInput;
 import core.requests.RequestFactory;
+import core.requests.WhichMap;
 import core.requests.response.Response;
 import core.requests.response.ResponseStatus;
-import core.server_game.utils.AgentAction;
+import utils.AgentAction;
 
 class RequestsTest {
 
@@ -21,6 +22,7 @@ class RequestsTest {
 	void testConnexion() throws NoSuchFieldException {
 
 		Connexion co = new Connexion("Jhon", "Azerty");
+		
 		byte[] content = co.fetchContent();
 
 		Connexion retour = (Connexion) new RequestFactory().fromBytes(content);
@@ -46,8 +48,14 @@ class RequestsTest {
 		Response res = new Response(ResponseStatus.OK, "C ok, tout va bien $^^' / \\");
 
 		byte[] content = res.fetchContent();
+		
+//		System.out.println("Content length : " + content.length);
+		
 		Response retour = (Response) new RequestFactory().fromBytes(content);
 
+		
+		
+		
 		assert retour.getStatus() == res.getStatus();
 		assert retour.getMessage().equals(res.getMessage());
 	}
@@ -61,7 +69,29 @@ class RequestsTest {
 		PlayerInput new_p = (PlayerInput) new RequestFactory().fromBytes(content);
 
 		assert new_p.getAction() == p.getAction();
-
+	}
+	
+	
+	@Test
+	void testWhichMapRequest() throws NoSuchFieldException {
+		WhichMap m = new WhichMap();
+		
+		byte[] content = m.fetchContent();
+				
+		WhichMap new_m = (WhichMap) new RequestFactory().fromBytes(content);
+		assert !new_m.isResponse();
+	}
+	
+	@Test
+	void testWhichMapResponse() throws NoSuchFieldException {
+		WhichMap m = new WhichMap("Super_map");
+		
+		byte[] content = m.fetchContent();
+				
+		WhichMap new_m = (WhichMap) new RequestFactory().fromBytes(content);
+		
+		assert new_m.isResponse();
+		assert new_m.getMapSelected().equals("Super_map");
 	}
 	
 	@Test

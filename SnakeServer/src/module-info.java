@@ -8,4 +8,5 @@
 module SnakeServer {
 	requires RequestsLib;
 	requires org.junit.jupiter.api;
+	requires java.desktop;
 }

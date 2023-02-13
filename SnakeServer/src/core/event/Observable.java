@@ -1,9 +1,9 @@
-package game.core.event;
+package core.event;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-import game.core.event.handler.EventType;
+import core.event.handler.EventType;
 
 public interface Observable {
 	

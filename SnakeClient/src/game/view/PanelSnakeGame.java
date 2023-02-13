@@ -14,12 +14,12 @@ import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-import core.server_game.utils.AgentAction;
-import game.core.FeaturesItem;
-import game.core.FeaturesSnake;
-import game.utils.ColorSnake;
-import game.utils.ItemType;
-import game.utils.Position;
+import utils.AgentAction;
+import utils.ColorSnake;
+import utils.FeaturesSnake;
+import utils.items.*;
+import utils.Position;
+import utils.items.FeaturesItem;
 
 
 /** 

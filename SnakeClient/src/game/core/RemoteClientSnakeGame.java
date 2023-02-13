@@ -1,13 +1,16 @@
 package game.core;
 
-public class RemoteSnakeGame extends SnakeGame {
+import core.InputMap;
+import core.SnakeGame;
 
-	public RemoteSnakeGame(int max_turn, InputMap map) {
+public class RemoteClientSnakeGame extends SnakeGame {
+
+	public RemoteClientSnakeGame(int max_turn, InputMap map) {
 		super(max_turn, map);
 		// TODO Auto-generated constructor stub
 	}
 
-	public RemoteSnakeGame(InputMap map) {
+	public RemoteClientSnakeGame(InputMap map) {
 		super(map);
 	}
 

@@ -7,15 +7,13 @@ public abstract class Request {
 	private byte[] content;
 	
 	
-	// [4 bytes header (lenght of content) ] [content]
+	// [4 bytes header (lenght of content) ] [content : [1 byte type] [X bytes body] ]
 	
 	public Request(byte[] content_recieved){
 		
-		this.content = new byte[content_recieved.length -1];
-		
-		System.arraycopy(content_recieved, 1, this.content, 0, content_recieved.length -1);	
-		
-		this.parseContent();
+		this.content = content_recieved;
+				
+		this.parseContent(this.content);
 	}
 	
 	public Request() {	
@@ -30,21 +28,42 @@ public abstract class Request {
 		byte[] content = getContent();
 		
 		if(content == null) {
-			content = encodeRequest();	
+			content = encodeRequest(new byte[]{});	
 			setContent(content);
 		}
 		
-		byte[] returned = new byte[content.length + 1];
+//		byte[] returned = new byte[content.length + 1];
+//		
+//		System.arraycopy(content, 0, returned, 1, content.length);
+//		returned[0] = (byte) getID();
 		
-		System.arraycopy(content, 0, returned, 1, content.length);
-		returned[0] = (byte) getID();
-		
-		return returned;
+		return content;
 	}
 		
-	protected abstract void parseContent();
+	protected byte[] parseContent(byte[] given_content) {
+		
+		byte[] resulting_content = new byte[given_content.length - 1];
+		
+		System.arraycopy(given_content, 1, resulting_content, 0, given_content.length -1);	
+		
+		return resulting_content;		
+	}
 	
-	protected abstract byte[] encodeRequest();			
+	protected byte[] encodeRequest(byte[] base) {
+		
+	if(base == null) {
+		base = new byte[0];
+	}
+	
+	byte[] returned = new byte[base.length + 1];
+	
+	System.arraycopy(base, 0, returned, 1, base.length);
+	
+	returned[0] = (byte) getID();
+	
+	return returned;
+	
+	}		
 	
 	final protected byte[] getContent() {
 		return this.content;

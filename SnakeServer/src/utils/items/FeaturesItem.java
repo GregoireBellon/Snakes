@@ -1,18 +1,12 @@
-package game.core;
+package utils.items;
 
-import game.utils.ItemType;
-
-public class FeaturesItem implements Cloneable{
+public class FeaturesItem {
 
 	
 	private int x;
 	private int y;
 	private ItemType itemType;
 	
-
-
-
-
 	public FeaturesItem(int x, int y, ItemType itemType) {
 		
 		this.x = x;
@@ -26,8 +20,6 @@ public class FeaturesItem implements Cloneable{
 		this.y = it.y;
 		this.itemType = it.itemType;
 	}
-	
-	
 	
 	
 	public int getX() {
@@ -57,12 +49,6 @@ public class FeaturesItem implements Cloneable{
 
 	public void setItemType(ItemType itemType) {
 		this.itemType = itemType;
-	}
-
-	@Override
-	protected Object clone() throws CloneNotSupportedException {
-		// TODO Auto-generated method stub
-		return super.clone();
 	}
 	
 	

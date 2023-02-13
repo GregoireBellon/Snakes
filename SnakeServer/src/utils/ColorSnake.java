@@ -1,4 +1,4 @@
-package game.utils;
+package utils;
 
 public enum ColorSnake {
 	Green,Red;

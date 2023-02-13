@@ -1,10 +1,6 @@
-package game.core;
+package utils;
 
 import java.util.ArrayList;
-
-import core.server_game.utils.AgentAction;
-import game.utils.ColorSnake;
-import game.utils.Position;
 
 
 public class FeaturesSnake implements Cloneable{

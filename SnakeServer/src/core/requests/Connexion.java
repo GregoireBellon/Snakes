@@ -12,8 +12,6 @@ public class Connexion extends Request{
 	
 	public Connexion(byte[] content){		
 		super(content);	
-		
-		this.parseContent();
 	}
 	
 	public Connexion(String username, String password) {
@@ -30,24 +28,25 @@ public class Connexion extends Request{
 	}
 	
 	@Override
-	protected void parseContent() {
+	protected byte[] parseContent(byte[] given_content) {
 				
-		byte[] content = getContent();
+		byte[] content = super.parseContent(given_content);
 		
 		String transcripted_content = new String(content, StandardCharsets.UTF_8);		
 		
 		String[] splited = transcripted_content.split(";");
 		this.username = splited[0];
-		this.password = splited[1];		
+		this.password = splited[1];
 		
+		return new byte[] {};		
 	}
 	
 	@Override
-	protected byte[] encodeRequest() {
+	protected byte[] encodeRequest(byte[] base) {
 		
 		byte[] body = new String(username+";"+password).getBytes();
 		
-		return body;
+		return super.encodeRequest(body);
 				
 	}
 	

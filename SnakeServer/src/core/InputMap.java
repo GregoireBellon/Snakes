@@ -1,4 +1,4 @@
-package game.core;
+package core;
 
 
 import java.io.BufferedReader;
@@ -8,17 +8,18 @@ import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import core.server_game.utils.AgentAction;
-import game.utils.ColorSnake;
-import game.utils.ItemType;
-import game.utils.Position;
+import utils.items.FeaturesItem;
+import utils.AgentAction;
+import utils.ColorSnake;
+import utils.FeaturesSnake;
+import utils.items.ItemType;
+import utils.Position;
 
 
 
 public class InputMap implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-
 
 	private String filename;
 	private int size_x;

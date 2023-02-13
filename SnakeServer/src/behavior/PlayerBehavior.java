@@ -1,24 +1,21 @@
-package game.controller;
+package behavior;
 
 import java.awt.Frame;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.IOException;
-import java.net.Socket;
 import java.util.HashMap;
+import java.util.List;
 
-import core.requests.PlayerInput;
-import helpers.Sender;
+import core.InputMap;
 import utils.AgentAction;
+import utils.Snake;
+import utils.items.Item;
 
-public class PlayerControl {
-	
+public class PlayerBehavior implements AgentBehavior{
+
 	AgentAction last_action = AgentAction.MOVE_DOWN;
-	Socket server_socket;
-	
-	
-	public PlayerControl(Frame f, Socket server_socket) {	
-		
+
+	public PlayerBehavior(Frame f) {	
 		HashMap<Integer, AgentAction> default_map = new HashMap<Integer, AgentAction>();
 		default_map.put(38, AgentAction.MOVE_UP);
 		default_map.put(39, AgentAction.MOVE_RIGHT);
@@ -26,13 +23,10 @@ public class PlayerControl {
 		default_map.put(37, AgentAction.MOVE_LEFT);
 		
 		subscribeKeyListener(f, default_map);
-		this.server_socket = server_socket;
-		
 	}
 	
-	public PlayerControl(Frame f, HashMap<Integer, AgentAction> keymap, Socket server_socket) {
+	public PlayerBehavior(Frame f, HashMap<Integer, AgentAction> keymap) {
 		subscribeKeyListener(f, keymap);
-		this.server_socket = server_socket;
 	}
 
 	
@@ -51,16 +45,17 @@ public class PlayerControl {
 				AgentAction pressed = keymap.get(e.getKeyCode());
 				
 				if(pressed != null) {
-					try {
-						Sender.send(server_socket, new PlayerInput(pressed));		
-					}catch(IOException err) {
-						System.err.println("Error while trying to communicate the player input");
-						err.printStackTrace();
-					}
+					last_action = pressed;
 				}
 			}
 		};	
 		f.addKeyListener(keypressed);
 
 	}
+	
+	@Override
+	public AgentAction playTurn(InputMap m, Snake s, List<Snake> agents, List<Item> items) {
+		return last_action;
 	}
+
+}
