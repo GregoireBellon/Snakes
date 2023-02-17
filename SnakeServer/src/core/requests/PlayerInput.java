@@ -40,7 +40,7 @@ public class PlayerInput extends Request {
 
 	@Override
 	protected byte[] encodeRequest(byte[] base) {
-				
+
 		return super.encodeRequest(new byte[] {(byte)this.action.ordinal()});
 		
 	}
