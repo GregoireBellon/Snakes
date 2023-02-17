@@ -1,5 +1,7 @@
 package core.requests;
 
+import java.util.Map;
+
 import request_handling.Request;
 import utils.AgentAction;
 
@@ -38,7 +40,7 @@ public class PlayerInput extends Request {
 
 	@Override
 	protected byte[] encodeRequest(byte[] base) {
-		
+				
 		return super.encodeRequest(new byte[] {(byte)this.action.ordinal()});
 		
 	}
