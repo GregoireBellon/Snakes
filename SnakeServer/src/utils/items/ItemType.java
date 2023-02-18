@@ -13,4 +13,14 @@ public enum ItemType {
 		default : return 'M';
 		}
 	}
+
+	public static ItemType fromChar(char c) {
+		switch(c) {
+		case 'A' : return APPLE;
+		case 'B' : return BOX ;
+		case 'Y' : return SICK_BALL;
+		default : return INVINCIBILITY_BALL;
+		}
+
+	}
 }

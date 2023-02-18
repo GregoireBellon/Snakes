@@ -26,24 +26,25 @@ public class LocalSnakeGame extends SnakeGame {
 		super(max_turn, map);
 		this.behaviors = new ArrayList<AgentBehavior>();
 
+		this.agents = new ArrayList<Snake>();
+		this.items = new ArrayList<Item>();
+
 //		this.items = new ArrayList<Item>();
 //		this.agents = new ArrayList<Snake>();
 	}
 
 	@Override
 	public void initializeGame() {
-		this.agents = new ArrayList<Snake>();
-		this.items = new ArrayList<Item>();
 
 		ItemFactory item_factory = new ItemFactory(this);
 		this.getMap().getStart_items().forEach(item -> {
 			items.add(item_factory.createItem(item));
 		});;
 
-		ArrayList<FeaturesSnake> snakes = this.getMap().getStart_snakes();
+		List<FeaturesSnake> snakes = this.getMap().getStart_snakes();
 
 		for(int i = 0; i < snakes.size(); i++) {
-
+			
 			if(i < behaviors.size()) {
 				this.agents.add(new Snake(snakes.get(i), this.behaviors.get(i), this));
 			}else

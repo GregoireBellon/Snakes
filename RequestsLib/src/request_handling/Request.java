@@ -1,6 +1,7 @@
 package request_handling;
 
 import java.nio.ByteBuffer;
+import java.util.Arrays;
 
 public abstract class Request {
 
@@ -83,6 +84,19 @@ public abstract class Request {
 		wrapped.put(content);
 		
 		return wrapped.array();
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		
+		if (!(obj instanceof Request)) {
+			return false;
+		}
+		
+		Request converted = (Request) obj;
+		
+		
+		return Arrays.equals(this.fetchContent(), converted.getContent());
 	}
 				
 }

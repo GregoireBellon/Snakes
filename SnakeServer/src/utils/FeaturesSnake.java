@@ -1,13 +1,13 @@
 package utils;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.ListIterator;
 
 
 public class FeaturesSnake implements Cloneable{
 
-
-
-	ArrayList<Position> positions;
+	List<Position> positions;
 	
 	
 	private AgentAction lastAction;
@@ -20,7 +20,7 @@ public class FeaturesSnake implements Cloneable{
 	
 	
 	
-	public FeaturesSnake(ArrayList<Position> positions, AgentAction lastAction, ColorSnake colorSnake, boolean isInvincible, boolean isSick) {
+	public FeaturesSnake(List<Position> positions, AgentAction lastAction, ColorSnake colorSnake, boolean isInvincible, boolean isSick) {
 		
 		this.positions = positions;
 		this.colorSnake = colorSnake;
@@ -48,7 +48,7 @@ public class FeaturesSnake implements Cloneable{
 	}
 		
 	
-	public ArrayList<Position> getPositions() {
+	public List<Position> getPositions() {
 		return positions;
 	}
 
@@ -104,6 +104,38 @@ public class FeaturesSnake implements Cloneable{
 		return super.clone();
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+
+		if (!(obj instanceof FeaturesSnake)) {
+			return false;
+		}
+		
+		FeaturesSnake converted = (FeaturesSnake) obj;
+		
+		if(converted.isInvincible() != this.isInvincible())
+			return false; 
+		if(converted.isSick() != this.isSick())
+			return false; 
+		if(converted.getColorSnake() != this.getColorSnake())
+			return false; 
+		if(converted.getLastAction() != this.getLastAction())
+			return false; 
+		
+		if(this.positions.size() != converted.positions.size())
+			return false;
+		
+		ListIterator<Position> converted_it = converted.positions.listIterator();
+		ListIterator<Position> pos_it = this.positions.listIterator();
+		
+		while(converted_it.hasNext() && pos_it.hasNext()) {
+			if(!(converted_it.next().equals(pos_it.next()))){
+				return false; 
+			}
+		}
+		
+		return true;
+	}
 	
 	
 }

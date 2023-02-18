@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import utils.items.FeaturesItem;
 import utils.AgentAction;
@@ -28,8 +29,8 @@ public class InputMap implements Serializable{
 	private boolean walls[][];
 
 
-	private ArrayList<FeaturesSnake> start_snakes ;
-	private ArrayList<FeaturesItem> start_items ;
+	private List<FeaturesSnake> start_snakes ;
+	private List<FeaturesItem> start_items ;
 
 
 	private BufferedReader buffer;
@@ -188,13 +189,20 @@ public class InputMap implements Serializable{
 	}
 
 
-	public ArrayList<FeaturesSnake> getStart_snakes() {
+	public List<FeaturesSnake> getStart_snakes() {
 		return start_snakes;
 	}
 
-	public ArrayList<FeaturesItem> getStart_items() {
+	public List<FeaturesItem> getStart_items() {
 		return start_items;
 	}
 
+	public void setStart_snakes(List<FeaturesSnake> snakes) {
+		this.start_snakes = snakes;
+	}
+
+	public void setStart_items(List<FeaturesItem> items) {
+		this.start_items = items;
+	}
 
 }
