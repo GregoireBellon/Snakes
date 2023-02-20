@@ -58,7 +58,7 @@ public class PanelSnakeGame extends JPanel{
 	
 	int cpt;
 
-	public PanelSnakeGame(int sizeX, int sizeY, boolean[][] walls, ArrayList<FeaturesSnake> featuresSnakes, ArrayList<FeaturesItem> featuresItems) {
+	public PanelSnakeGame(int sizeX, int sizeY, boolean[][] walls, List<FeaturesSnake> featuresSnakes, List<FeaturesItem> featuresItems) {
 
 		this.sizeX = sizeX;
 		this.sizeY = sizeY;
@@ -119,7 +119,7 @@ public class PanelSnakeGame extends JPanel{
 	void paint_Snake(Graphics g, FeaturesSnake featuresSnake)
 	{
 
-		ArrayList<Position> positions = featuresSnake.getPositions();
+		List<Position> positions = featuresSnake.getPositions();
 		
 		AgentAction lastAction = featuresSnake.getLastAction();
 

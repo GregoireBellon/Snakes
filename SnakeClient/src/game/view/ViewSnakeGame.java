@@ -7,7 +7,7 @@ import java.util.List;
 
 import javax.swing.JFrame;
 
-import game.controller.AbstractController;
+import controller.AbstractController;
 import utils.FeaturesSnake;
 import utils.items.FeaturesItem;
 
@@ -57,6 +57,7 @@ public class ViewSnakeGame extends GameView {
 	
 	public void update() {
 		this.panel_game.repaint();
+		getFrame().repaint();
 	}
 
 }

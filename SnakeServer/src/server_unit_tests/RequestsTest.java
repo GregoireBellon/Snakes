@@ -63,8 +63,6 @@ class RequestsTest {
 		Response retour = (Response) new RequestFactory().fromBytes(content);
 
 		
-		
-		
 		assert retour.getStatus() == res.getStatus();
 		assert retour.getMessage().equals(res.getMessage());
 	}

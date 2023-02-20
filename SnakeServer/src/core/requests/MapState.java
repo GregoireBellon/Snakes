@@ -32,6 +32,10 @@ public class MapState extends MayBeResponse{
 		super(content_recieved);	
 	}
 	
+	public MapState() {
+		super(false);
+	}
+	
 	public MapState(Context context) {
 		super(true);
 		this.context = context;
@@ -46,6 +50,13 @@ public class MapState extends MayBeResponse{
 	@Override
 	protected byte[] parseContent(byte[] given_content) {
 		byte[] content = super.parseContent(given_content);
+		
+		if(!this.isResponse()) {
+			
+			return new byte[] {};
+
+		}
+		
 		ByteBuffer buff = ByteBuffer.wrap(content);
 		
 		
@@ -100,7 +111,7 @@ public class MapState extends MayBeResponse{
 		}
 		
 
-
+		this.context = new Context(snakes, items);
 
 		
 		return new byte[] {};
@@ -109,6 +120,10 @@ public class MapState extends MayBeResponse{
 	
 	@Override
 	protected byte[] encodeRequest(byte[] base) {
+		
+		if(!this.isResponse()) {
+			return super.encodeRequest(new byte[] {});
+		}
 		
 		List<FeaturesItem> items = this.context.getItems();
 		

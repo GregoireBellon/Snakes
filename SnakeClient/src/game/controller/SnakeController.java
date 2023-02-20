@@ -1,5 +1,6 @@
 package game.controller;
 
+import controller.AbstractController;
 import core.InputMap;
 import core.SnakeGame;
 import core.event.handler.EventType;

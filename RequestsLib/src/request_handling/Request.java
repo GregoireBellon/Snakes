@@ -95,8 +95,9 @@ public abstract class Request {
 		
 		Request converted = (Request) obj;
 		
+		this.content = null;
 		
-		return Arrays.equals(this.fetchContent(), converted.getContent());
+		return Arrays.equals(this.fetchContent(), converted.fetchContent());
 	}
 				
 }

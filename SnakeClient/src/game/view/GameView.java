@@ -2,7 +2,7 @@ package game.view;
 
 import javax.swing.JFrame;
 
-import game.controller.AbstractController;
+import controller.AbstractController;
 
 public abstract class GameView {
 	private JFrame frame;

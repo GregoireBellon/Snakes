@@ -75,8 +75,8 @@ public class InputMap implements Serializable{
 			int y=0;
 
 
-			start_snakes = new ArrayList<>();
-			start_items = new ArrayList<>();
+			this.start_snakes = new ArrayList<FeaturesSnake>();
+			this.start_items = new ArrayList<FeaturesItem>();
 
 			int id = 0;
 

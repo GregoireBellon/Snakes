@@ -77,7 +77,6 @@ public class LocalSnakeGame extends SnakeGame {
 
 		}
 		notifySubscribers(EventType.SNAKE_MOVED, new PropertyChangeEvent(this.getMap(), EventType.SNAKE_MOVED.toString(), 0, 1));
-
 	}
 
 	//détecte la case sur laquelle est l'agent et applique un effet; 

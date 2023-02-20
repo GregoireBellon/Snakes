@@ -16,9 +16,7 @@ public class SnakeMovedHandler implements PropertyChangeListener {
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		if (evt.getPropertyName().equals(EventType.SNAKE_MOVED.toString())) {
 			view.update();
-		}
 	}
 
 }

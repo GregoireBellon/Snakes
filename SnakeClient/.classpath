@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-17">
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
@@ -15,7 +15,7 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/SnakeServer">
 		<attributes>
 			<attribute name="module" value="true"/>
-			<attribute name="add-exports" value="SnakeServer/core.requests=SnakeClient:SnakeServer/core.requests.response=SnakeClient:SnakeServer/core.server_game.utils=SnakeClient:SnakeServer/core=SnakeClient:SnakeServer/core.event=SnakeClient:SnakeServer/core.event.handler=SnakeClient:SnakeServer/utils=SnakeClient:SnakeServer/utils.items=SnakeClient"/>
+			<attribute name="add-exports" value="SnakeServer/core.requests=SnakeClient:SnakeServer/core.requests.response=SnakeClient:SnakeServer/core=SnakeClient:SnakeServer/core.event=SnakeClient:SnakeServer/core.event.handler=SnakeClient:SnakeServer/utils=SnakeClient:SnakeServer/utils.items=SnakeClient:SnakeServer/controller=SnakeClient"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="output" path="bin"/>

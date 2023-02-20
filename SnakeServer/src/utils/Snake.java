@@ -1,6 +1,5 @@
 package utils;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -8,7 +7,6 @@ import behavior.AgentBehavior;
 import behavior.searchPathAlgorithm.Target;
 import core.InputMap;
 import core.LocalSnakeGame;
-import core.SnakeGame;
 import core.event.handler.Effect;
 import core.event.handler.EventType;
 
@@ -60,7 +58,7 @@ public class Snake implements Target{
 		features.setLastAction(move);
 
 
-		ArrayList<Position> pos =features.getPositions();
+		List<Position> pos =features.getPositions();
 
 		this.tail_last_pos = pos.get(pos.size()-1); 
 
@@ -106,5 +104,9 @@ public class Snake implements Target{
 	@Override
 	public List<Position> getTargetPositions() {
 		return this.getFeaturesSnake().getPositions();
+	}
+	
+	public AgentBehavior getBehavior() {
+		return this.behavior;
 	}
 }

@@ -7,7 +7,7 @@ import java.net.Socket;
 
 import request_handling.Router;
 
-public class CommunicationBridge {
+public class CommunicationBridge implements Runnable {
 
 	private Router req_handler;
 	private ServerSocket serv;
@@ -33,12 +33,18 @@ public class CommunicationBridge {
 			}
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			System.err.println("Erreur IO ");
+			e.printStackTrace();
 
 		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
+			System.err.println("Erreur de sécurité : ");
 			e.printStackTrace();
 		}
 
+	}
+
+	@Override
+	public void run() {
+		listen();
 	}
 }

@@ -24,11 +24,13 @@ public class MapChangedHandler implements PropertyChangeListener {
 			
 		List<FeaturesItem> new_fi = map.getStart_items();
 		List<FeaturesSnake> new_fs = map.getStart_snakes();
+		
+		System.out.println("Nb of items : " + new_fi.size());
+		System.out.println("Nb of snakes : " + new_fs.size());
 			
 		view.updateInfoGame(new_fs, new_fi);
 		view.update();
 	
 		System.out.println("ITEM ADDED");
 	}
-	
 }
