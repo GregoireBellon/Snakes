@@ -21,9 +21,9 @@ public class SnakeController extends AbstractController {
 		this.map = game.getMap();
 
 		PanelSnakeGame panel = new PanelSnakeGame(map.getSizeX(), map.getSizeY(), map.get_walls(), map.getStart_snakes(), map.getStart_items());
-
+		
 		this.view_snake = new ViewSnakeGame(this, panel);
-
+		
 		SnakeMovedHandler move_handler = new SnakeMovedHandler(view_snake);
 
 //		game.subscribe(EventType.MAP_CHANGED, new MapChangedHandler(game.getMap(), game));
@@ -46,7 +46,12 @@ public class SnakeController extends AbstractController {
 		PanelSnakeGame panel = new PanelSnakeGame(map.getSizeX(), map.getSizeY(), map.get_walls(), map.getStart_snakes(), map.getStart_items());
 //		view_snake.
 		view_snake.setPannel(panel);
-
+	}
+	
+	@Override
+	public void play() {
+		super.play();
+		this.view_snake.setVisible(true);
 	}
 
 

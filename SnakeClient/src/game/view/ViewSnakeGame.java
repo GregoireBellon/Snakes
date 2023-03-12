@@ -20,32 +20,29 @@ public class ViewSnakeGame extends GameView {
 		
 		this.panel_game = panel_game;
 		
-		setFrame(new JFrame());
-		getFrame().setTitle("Game");
-		getFrame().setSize(new Dimension(700,700));
-		Dimension windowSize = getFrame().getSize();
+		this.setTitle("Game");
+		this.setSize(new Dimension(700,700));
+		Dimension windowSize = this.getSize();
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		Point center_point = ge.getCenterPoint();
 		
 		int dx = center_point.x - windowSize.width / 2;
 		int dy = center_point.y - windowSize.height / 2 - 350;
 		
-		getFrame().setLocation(dx,dy);
-		getFrame().setVisible(true);
+		this.setLocation(dx,dy);
 		
 		if(panel_game != null) {			
-			getFrame().add(this.panel_game);
-			getFrame().setSize(panel_game.getSizeX() * 40 , panel_game.getSizeY()*40);
+			this.add(this.panel_game);
+			this.setSize(panel_game.getSizeX() * 40 , panel_game.getSizeY()*40);
 		}
 		
-
 	}
 	
 	public void setPannel(PanelSnakeGame panel_game) {
-		getFrame().remove(this.panel_game);
+		this.remove(this.panel_game);
 		this.panel_game = panel_game;
-		getFrame().add(panel_game);
-		getFrame().revalidate();
+		this.add(panel_game);
+		this.revalidate();
 
 
 	}
@@ -57,7 +54,7 @@ public class ViewSnakeGame extends GameView {
 	
 	public void update() {
 		this.panel_game.repaint();
-		getFrame().repaint();
+		this.repaint();
 	}
 
 }
