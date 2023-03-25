@@ -48,7 +48,19 @@ public class CustomRouter extends Router {
 		positions.add(new Position(5,5));
 		
 		game.addOnlinePlayer(soc, new Snake(new FeaturesSnake(positions, AgentAction.MOVE_DOWN, ColorSnake.Green, false, false), new PlayerBehavior(), game));
-//		game.getOnlinePlayers().put(soc, null);
+
+		
+//		SI TOUT EST OK
+		Connexion con_respon = new Connexion(true);
+		
+		
+//		SINON
+		Connexion con_respon = new Connexion(false);
+		
+		
+		Sender.send(soc, con_respon);
+
+		//		game.getOnlinePlayers().put(soc, null);
 	};
 
 	private FunctionRequest handle_deconnexion = (Request r, Socket soc) -> {

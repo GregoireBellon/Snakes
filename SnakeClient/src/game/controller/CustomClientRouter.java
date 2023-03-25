@@ -6,6 +6,7 @@ import java.util.Map;
 
 import core.Context;
 import core.event.handler.EventType;
+import core.requests.Connexion;
 import core.requests.MapState;
 import core.requests.WhichMap;
 import core.requests.response.Response;
@@ -25,6 +26,25 @@ public class CustomClientRouter extends Router {
 		this.controller = controller;
 	}
 
+       private FunctionRequest handle_connexion = (Request r, Socket soc) ->{
+    	   Connexion c = (Connexion) r;
+    	   
+    	   if(c.isResponse()) {
+    		   
+    		   if(c.isConOk()) {
+//    			   continue normalement
+    		   }
+    		   else {
+//    			   message d'erreur dans l'interface connexion
+//    			   jeu ne se lance pas
+    		   }
+
+    	   }
+    	   else {
+//    		   ignorer
+    	   }
+    	   
+       };
        
    	private FunctionRequest handle_whichmap = (Request r, Socket soc) -> {
         WhichMap c = (WhichMap) r;
@@ -67,6 +87,7 @@ public class CustomClientRouter extends Router {
                map.put(Response.ID, handle_response);
                map.put(WhichMap.ID, handle_whichmap);
                map.put(MapState.ID, handle_mapstate);
+               map.put(Connexion.ID, handle_connexion);
                
                return map;
        }
