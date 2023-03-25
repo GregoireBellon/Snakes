@@ -29,13 +29,20 @@ public class TestRun {
 		
 		
 		RemoteSnakeController controller = new RemoteSnakeController();		
-//		ConnexionView view = new ConnexionView(controller);
+		ConnexionView view = new ConnexionView(controller);
 	
-		controller.setConnexion("localhost:44444", "jhon", "jhon");
 		
+		view.setVisible(true);
+		while(view.isVisible()) {
+			if(controller.setConnexion("localhost:44464", "jhon", "jhon")) {
+				view.setVisible(false);
+			}
+		}
+		view.dispose();
 		controller.play();
 		
-//		view.setVisible(true);
+    
+		
 		
 		
 	}

@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import behavior.AgentBehavior;
+import behavior.NotThatDumbBehavior;
+import behavior.PlayerBehavior;
 import behavior.RandomBehavior;
 import core.event.handler.EventType;
 import utils.MoveUtils;
@@ -49,7 +51,7 @@ public class LocalSnakeGame extends SnakeGame {
 				this.agents.add(new Snake(snakes.get(i), this.behaviors.get(i), this));
 			}else
 			{
-				this.agents.add(new Snake(snakes.get(i), new RandomBehavior(), this));
+				this.agents.add(new Snake(snakes.get(i), new PlayerBehavior(), this));
 			}
 		}
 		System.out.println("Game initialized");

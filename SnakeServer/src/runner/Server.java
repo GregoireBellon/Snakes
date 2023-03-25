@@ -17,7 +17,7 @@ public class Server {
 		
 		ServerSnakeGame game = new ServerSnakeGame(selected_map);
 		
-		ServerSocket so = new ServerSocket(44_444);
+		ServerSocket so = new ServerSocket(44_464);
 		
 		CustomRouter rev = new CustomRouter(game, new RequestFactory());
 		
