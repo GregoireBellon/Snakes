@@ -29,13 +29,14 @@ public class TestRun {
 		
 		
 		RemoteSnakeController controller = new RemoteSnakeController();		
-//		ConnexionView view = new ConnexionView(controller);
-	
-		controller.setConnexion("localhost:44444", "jhon", "jhon");
+		ConnexionView view = new ConnexionView(controller);
 		
-		controller.play();
 		
-//		view.setVisible(true);
+		//controller.setConnexion("localhost:44444","laura_jones@mail.fr", "laulau");
+		
+		//controller.play();
+		
+		
 		
 		
 	}

@@ -79,9 +79,20 @@ public class ConnexionView extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				controller.setConnexion(serv_url.getText() ,username.getText(), password.getText());
-				controller.play();
-//				setVisible(false);
+				if(controller.setConnexion(serv_url.getText() ,username.getText(), password.getText())) {
+					Thread playThread = new Thread(new Runnable() {
+		                @Override
+		                public void run() {
+		                    controller.play();
+		                }
+		            });
+		            playThread.start();
+					setVisible(false);
+				}
+				else {
+					
+				}
+				
 			}
 		});		
 		form.add(submit);
@@ -92,7 +103,7 @@ public class ConnexionView extends JFrame {
 		panel.add(form);
 		
 		content_panel.add(panel);
-		
+		setVisible(true);
 	}
 	
 	

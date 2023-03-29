@@ -24,6 +24,7 @@ import request_handling.FunctionRequest;
 import request_handling.Request;
 import request_handling.Router;
 import utils.AgentAction;
+import utils.AuthQuery;
 import utils.ColorSnake;
 import utils.FeaturesSnake;
 import utils.Position;
@@ -42,24 +43,33 @@ public class CustomRouter extends Router {
 
 	private FunctionRequest handle_connexion = (Request r, Socket soc) -> {
 		Connexion c = (Connexion) r;
-		
+		AuthQuery authquery= new AuthQuery();
 		List<Position> positions = new ArrayList<Position>();
 		
 		positions.add(new Position(5,5));
+		System.out.println("Identifiants : " + c.getUsername() + " " + c.getPassword());
 		
-		game.addOnlinePlayer(soc, new Snake(new FeaturesSnake(positions, AgentAction.MOVE_DOWN, ColorSnake.Green, false, false), new PlayerBehavior(), game));
-
-		
+		System.out.println("La requete a renvoyée :" +authquery.getAuth(c.getUsername(), c.getPassword()));
+		Connexion con_respon = null;
 //		SI TOUT EST OK
-		Connexion con_respon = new Connexion(true);
-		
+		if(authquery.getAuth(c.getUsername(), c.getPassword())) {
+			con_respon = new Connexion(true);
+			game.addOnlinePlayer(soc, new Snake(new FeaturesSnake(positions, AgentAction.MOVE_DOWN, ColorSnake.Green, false, false), new PlayerBehavior(), game));
+		}
 		
 //		SINON
-		Connexion con_respon = new Connexion(false);
+		else {
+			con_respon = new Connexion(false);
+		}
 		
 		
-		Sender.send(soc, con_respon);
+		
 
+	
+		
+		
+		
+	
 		//		game.getOnlinePlayers().put(soc, null);
 	};
 
@@ -84,7 +94,9 @@ public class CustomRouter extends Router {
 			String map_name = splitted[splitted.length - 1];
 			
 			try {
+				System.out.println("Taille dans le jeu AVANT SEND: " + this.game.getOnlinePlayers().size());
 				Sender.send(soc, new WhichMap(map_name));
+				System.out.println("Taille dans le jeu Apres SEND: " + this.game.getOnlinePlayers().size());
 			} catch (IOException e) {
 
 				System.err.println("Counldn't send WichMap request to " + soc.getInetAddress().toString() + " : ");
@@ -105,11 +117,9 @@ public class CustomRouter extends Router {
 	private FunctionRequest handle_mapstate = (Request r, Socket soc) -> {
 		
 		System.out.println("Requête MapState reçue");
-
+		
 		try {
-			
 		Sender.send(soc, new MapState(new Context(this.game.getMap().getStart_snakes(), this.game.getMap().getStart_items())));
-
 		} catch (IOException e) {
 
 			System.err.println("Counldn't send MapState request to " + soc.getInetAddress().toString() + " : ");
