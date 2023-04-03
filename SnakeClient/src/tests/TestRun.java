@@ -29,12 +29,19 @@ public class TestRun {
 		
 		
 		RemoteSnakeController controller = new RemoteSnakeController();		
+<<<<<<< dev
 		ConnexionView view = new ConnexionView(controller);
 <<<<<<< HEAD
 	
 =======
 >>>>>>> refs/heads/gestion-auth
+=======
+//		ConnexionView view = new ConnexionView(controller);
+	
+		controller.setConnexion("localhost:44444", "jhon", "jhon");
+>>>>>>> eccf864 Ajout de l'authentification
 		
+<<<<<<< dev
 <<<<<<< HEAD
 		view.setVisible(true);
 		while(view.isVisible()) {
@@ -46,7 +53,11 @@ public class TestRun {
 		controller.play();
 =======
 >>>>>>> refs/heads/gestion-auth
+=======
+		controller.play();
+>>>>>>> eccf864 Ajout de l'authentification
 		
+<<<<<<< dev
 <<<<<<< HEAD
     
 =======
@@ -56,6 +67,9 @@ public class TestRun {
 		
 >>>>>>> refs/heads/gestion-auth
 		
+=======
+//		view.setVisible(true);
+>>>>>>> eccf864 Ajout de l'authentification
 		
 		
 	}

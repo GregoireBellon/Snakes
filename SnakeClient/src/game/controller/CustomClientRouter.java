@@ -33,10 +33,8 @@ public class CustomClientRouter extends Router {
     		   
     		   if(c.isConOk()) {
 //    			   continue normalement
-    			   //controller.setConnexion(null, null, null);
     		   }
     		   else {
-    			
 //    			   message d'erreur dans l'interface connexion
 //    			   jeu ne se lance pas
     		   }
