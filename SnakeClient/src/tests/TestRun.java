@@ -30,8 +30,12 @@ public class TestRun {
 		
 		RemoteSnakeController controller = new RemoteSnakeController();		
 		ConnexionView view = new ConnexionView(controller);
+<<<<<<< HEAD
 	
+=======
+>>>>>>> refs/heads/gestion-auth
 		
+<<<<<<< HEAD
 		view.setVisible(true);
 		while(view.isVisible()) {
 			if(controller.setConnexion("localhost:44464", "jhon", "jhon")) {
@@ -40,8 +44,17 @@ public class TestRun {
 		}
 		view.dispose();
 		controller.play();
+=======
+>>>>>>> refs/heads/gestion-auth
 		
+<<<<<<< HEAD
     
+=======
+		//controller.setConnexion("localhost:44444","laura_jones@mail.fr", "laulau");
+		
+		//controller.play();
+		
+>>>>>>> refs/heads/gestion-auth
 		
 		
 		

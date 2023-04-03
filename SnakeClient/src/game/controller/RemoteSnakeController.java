@@ -140,7 +140,9 @@ public class RemoteSnakeController extends AbstractController {
           super.getGame().subscribe(EventType.SNAKE_MOVED, move_handler);
           
           Sender.send(this.server_socket, new MapState());
-          
+          System.out.println("url: " + this.server_url);
+          System.out.println("username: "+this.username);
+          System.out.println("pass: "+this.password);
     	   } catch (Exception e) {
     		   e.printStackTrace();
     		   return;
