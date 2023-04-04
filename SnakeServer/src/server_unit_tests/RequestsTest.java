@@ -3,11 +3,15 @@ package server_unit_tests;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringBufferInputStream;
+import java.io.StringReader;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+
+import com.fasterxml.jackson.databind.JsonNode;
 
 import core.Context;
 import core.requests.Connexion;
@@ -32,9 +36,9 @@ class RequestsTest {
 
 		Connexion co = new Connexion("Jhon", "Azerty");
 		
-		byte[] content = co.fetchContent();
+		JsonNode content = co.fetchContent();
 
-		Connexion retour = (Connexion) new RequestFactory().fromBytes(content);
+		Connexion retour = (Connexion) new RequestFactory().fromJson(content);
 
 		assert retour.getUsername().equals(co.getUsername());
 		assert retour.getPassword().equals(co.getPassword());		
@@ -44,9 +48,9 @@ class RequestsTest {
 	@Test
 	void testDeconnexion() throws NoSuchFieldException {
 		Deconnexion co = new Deconnexion("Jhon");
-		byte[] content = co.fetchContent();
-
-		Deconnexion retour = (Deconnexion) new RequestFactory().fromBytes(content);
+		JsonNode content = co.fetchContent();
+		
+		Deconnexion retour = (Deconnexion) new RequestFactory().fromJson(content);
 
 		assert retour.getUsername().equals(co.getUsername());
 	}
@@ -56,12 +60,11 @@ class RequestsTest {
 
 		Response res = new Response(ResponseStatus.OK, "C ok, tout va bien $^^' / \\");
 
-		byte[] content = res.fetchContent();
+		JsonNode content = res.fetchContent();
 		
 //		System.out.println("Content length : " + content.length);
 		
-		Response retour = (Response) new RequestFactory().fromBytes(content);
-
+		Response retour = (Response) new RequestFactory().fromJson(content);
 		
 		assert retour.getStatus() == res.getStatus();
 		assert retour.getMessage().equals(res.getMessage());
@@ -72,9 +75,9 @@ class RequestsTest {
 	void testPlayerInput() throws NoSuchFieldException {
 		PlayerInput p = new PlayerInput(AgentAction.MOVE_LEFT);
 		
-		byte[] content = p.fetchContent();
-		PlayerInput new_p = (PlayerInput) new RequestFactory().fromBytes(content);
-
+		JsonNode content = p.fetchContent();
+		PlayerInput new_p = (PlayerInput) new RequestFactory().fromJson(content);
+		
 		assert new_p.getAction() == p.getAction();
 	}
 	
@@ -83,9 +86,9 @@ class RequestsTest {
 	void testWhichMapRequest() throws NoSuchFieldException {
 		WhichMap m = new WhichMap();
 		
-		byte[] content = m.fetchContent();
+		JsonNode content = m.fetchContent();
 				
-		WhichMap new_m = (WhichMap) new RequestFactory().fromBytes(content);
+		WhichMap new_m = (WhichMap) new RequestFactory().fromJson(content);
 		assert !new_m.isResponse();
 	}
 	
@@ -93,9 +96,9 @@ class RequestsTest {
 	void testWhichMapResponse() throws NoSuchFieldException {
 		WhichMap m = new WhichMap("Super_map");
 		
-		byte[] content = m.fetchContent();
+		JsonNode content = m.fetchContent();
 				
-		WhichMap new_m = (WhichMap) new RequestFactory().fromBytes(content);
+		WhichMap new_m = (WhichMap) new RequestFactory().fromJson(content);
 		
 		assert new_m.isResponse();
 		assert new_m.getMapSelected().equals("Super_map");
@@ -103,8 +106,11 @@ class RequestsTest {
 	
 	@Test
 	void testMapStateRequest() throws NoSuchFieldException {
-		List<FeaturesSnake> mock_snakes = new ArrayList<FeaturesSnake>();
 		
+		
+		System.out.println("Hello");
+		
+		List<FeaturesSnake> mock_snakes = new ArrayList<FeaturesSnake>();
 		List<Position> pos = new ArrayList<Position>();
 		
 		pos.add(new Position(10, 10));
@@ -122,9 +128,9 @@ class RequestsTest {
 		
 		MapState ms = new MapState(new Context(mock_snakes, mock_items));
 		
-		byte[] content = ms.fetchContent();
-				
-		MapState new_ms = (MapState)  new RequestFactory().fromBytes(content);
+		JsonNode content = ms.fetchContent();
+//				
+		MapState new_ms = (MapState)  new RequestFactory().fromJson(content);
 		
 		assert new_ms.equals(ms);
 	}
@@ -136,22 +142,29 @@ class RequestsTest {
 		Deconnexion dec = new Deconnexion("Jhon");
 
 
-		ByteBuffer byte_buf = ByteBuffer.allocate(
-				co.getSendable().length 
-				+ res.getSendable().length 
-				+ dec.getSendable().length);
+		StringBuffer buf = new StringBuffer(
+				co.getSendable().length() 
+				+ res.getSendable().length() 
+				+ dec.getSendable().length());
+		
+		System.out.println(res.getSendable());
 
-		byte_buf.put(co.getSendable());
+		buf.append(co.getSendable());
 
-		byte_buf.put(res.getSendable());
+		System.out.println(buf.length());
+		
+		buf.append(res.getSendable());
+		
+		System.out.println(buf.length());
 
-		byte_buf.put(dec.getSendable());
+		buf.append(dec.getSendable());
+		
+		System.out.println(buf.length());
 
+		
 		RequestFactory req = new RequestFactory();
 		
-		InputStream is = new ByteArrayInputStream(byte_buf.array());
-
-		
+		InputStream is = new ByteArrayInputStream(buf.toString().getBytes());
 		
 		Connexion co_retour = (Connexion) req.fromSendableStream(is);
 

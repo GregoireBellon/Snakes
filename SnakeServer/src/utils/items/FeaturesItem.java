@@ -7,6 +7,8 @@ public class FeaturesItem {
 	private int y;
 	private ItemType itemType;
 	
+	public FeaturesItem() {}
+	
 	public FeaturesItem(int x, int y, ItemType itemType) {
 		
 		this.x = x;

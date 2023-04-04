@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
 import helpers.ByteConversion;
 import request_handling.Request;
 
@@ -16,7 +19,7 @@ public class Response extends Request{
 	private String message;
 	
 	
-	public Response(byte[] content){
+	public Response(JsonNode content){
 		super(content);
 	}
 	
@@ -28,38 +31,33 @@ public class Response extends Request{
 	}
 		
 	@Override
-	protected byte[] parseContent(byte[] given_content) {
+	protected void parseContent(JsonNode given_content) {
 		
-		byte[] content = super.parseContent(given_content);
+//		super.parseContent(given_content);
 		
 		try {
-			this.status = ResponseStatus.fromByte(content[0]);
+			this.status = ResponseStatus.fromByte((byte) given_content.get("status").asInt());
 		} catch (NoSuchFieldException e) {
 			this.status = ResponseStatus.Other;
 		}
 		
-		byte[] curated_content = Arrays.copyOfRange(content, 1, content.length);
-		this.message = new String(curated_content, StandardCharsets.UTF_8);
-		
-		return new byte[] {};						
+		this.message = given_content.get("message").asText();
+
 	}
 	
 	@Override
-	protected byte[] encodeRequest(byte[] base) {
+	protected ObjectNode encodeRequest(ObjectNode base) {
 		
-		List<Byte> encoder = new ArrayList<Byte>();
-				
-		encoder.add(this.getStatus().toByte());
-		
-		encoder.addAll(ByteConversion.arrayToByteList(this.message.getBytes()));
-		
-		byte[] returned = new byte[encoder.size()];
-		
-		for(int i = 0; i < encoder.size(); i++) {
-			returned[i] = encoder.get(i).byteValue();
+		if(base == null) {
+			base = this.mapper.createObjectNode();
 		}
+
+//		List<Byte> encoder = new ArrayList<Byte>();
+				
+		base.put("status", (int) this.getStatus().toByte());
+		base.put("message", this.message);
 		
-		return super.encodeRequest(returned);
+		return super.encodeRequest(base);
 	}
 		
 	public ResponseStatus getStatus() {

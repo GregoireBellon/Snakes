@@ -10,7 +10,7 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/SnakeServer">
 		<attributes>
 			<attribute name="module" value="true"/>
-			<attribute name="add-exports" value="SnakeServer/core.requests=SimpleClient:SnakeServer/core.requests.response=SimpleClient"/>
+			<attribute name="add-exports" value="SnakeServer/core.requests=SimpleClient:SnakeServer/core.requests.response=SimpleClient:SnakeServer/utils=SimpleClient"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">

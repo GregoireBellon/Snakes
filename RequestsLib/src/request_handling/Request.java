@@ -1,103 +1,100 @@
 package request_handling;
 
+import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.JsonSerializable;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
 public abstract class Request {
 
-	private byte[] content;
 	
+	protected static final ObjectMapper mapper = new ObjectMapper();
 	
+	ObjectNode content;
+
+
 	// [4 bytes header (lenght of content) ] [content : [1 byte type] [X bytes body] ]
-	
-	public Request(byte[] content_recieved){
-		
-		this.content = content_recieved;
-				
+
+	public Request(JsonNode content_recieved){
+
+		this.content = (ObjectNode) content_recieved;
+
 		this.parseContent(this.content);
 	}
-	
+
 	public Request() {	
 	}
+
 	
 	public abstract int getID();
-	
+
 	// Permet de récupérer le contenu de la requête, avec lazy loading + ajout de l'ID du type
-	
-	final public byte[] fetchContent() {
-		
-		byte[] content = getContent();
-		
+
+	final public ObjectNode fetchContent() {
+
+		ObjectNode content = getContent();
+
 		if(content == null) {
-			content = encodeRequest(new byte[]{});	
+			content = encodeRequest(this.mapper.createObjectNode());	
 			setContent(content);
 		}
-		
-//		byte[] returned = new byte[content.length + 1];
-//		
-//		System.arraycopy(content, 0, returned, 1, content.length);
-//		returned[0] = (byte) getID();
-		
+
+		//		byte[] returned = new byte[content.length + 1];
+		//		
+		//		System.arraycopy(content, 0, returned, 1, content.length);
+		//		returned[0] = (byte) getID();
+
 		return content;
 	}
+	
+	protected abstract void parseContent(JsonNode given_content);
+	
+	protected ObjectNode encodeRequest(ObjectNode base) {
+
+		if(base == null) {
+			base = this.mapper.createObjectNode();
+		}		
 		
-	protected byte[] parseContent(byte[] given_content) {
-		
-		byte[] resulting_content = new byte[given_content.length - 1];
-		
-		System.arraycopy(given_content, 1, resulting_content, 0, given_content.length -1);	
-		
-		return resulting_content;		
-	}
-	
-	protected byte[] encodeRequest(byte[] base) {
-		
-	if(base == null) {
-		base = new byte[0];
-	}
-	
-	byte[] returned = new byte[base.length + 1];
-	
-	System.arraycopy(base, 0, returned, 1, base.length);
-	
-	returned[0] = (byte) getID();
-	
-	return returned;
-	
+		base.put("id", this.getID());
+
+		return base;
+
 	}		
-	
-	final protected byte[] getContent() {
+
+	final protected ObjectNode getContent() {
 		return this.content;
 	}
-	
-	final protected void setContent(byte[] content) {
+
+	final protected void setContent(ObjectNode content) {
 		this.content = content;
 	}
-	
+
 	// Sendable is the content + the header with the lenght of the request
-	public byte[] getSendable() {
-		
-		byte[] content = this.fetchContent();
-		
-		ByteBuffer wrapped = ByteBuffer.allocate(content.length + 4);
-		wrapped.putInt(content.length);
-		wrapped.put(content);
-		
-		return wrapped.array();
+	public String getSendable() {
+
+		ObjectNode content = this.fetchContent();
+
+		return content.toString() + "\n";
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
-		
+
 		if (!(obj instanceof Request)) {
 			return false;
 		}
-		
+
 		Request converted = (Request) obj;
-		
+
 		this.content = null;
-		
-		return Arrays.equals(this.fetchContent(), converted.fetchContent());
+
+		return this.fetchContent().equals(converted.fetchContent());
 	}
-				
+
 }

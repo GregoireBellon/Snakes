@@ -19,6 +19,7 @@ public class FeaturesSnake implements Cloneable{
 	
 	
 	
+	public FeaturesSnake() {}
 	
 	public FeaturesSnake(List<Position> positions, AgentAction lastAction, ColorSnake colorSnake, boolean isInvincible, boolean isSick) {
 		

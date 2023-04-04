@@ -2,6 +2,9 @@ package core.requests;
 
 import java.util.Map;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
 import request_handling.Request;
 import utils.AgentAction;
 
@@ -11,7 +14,7 @@ public class PlayerInput extends Request {
 	
 	private AgentAction action;
 	
-	public PlayerInput(byte[] content){
+	public PlayerInput(JsonNode content){
 		super(content);
 	}
 	
@@ -25,23 +28,28 @@ public class PlayerInput extends Request {
 	}
 
 	@Override
-	protected byte[] parseContent(byte[] given_content) {
+	protected void parseContent(JsonNode given_content) {
 		
-		byte[] content = super.parseContent(given_content);
+//		super.parseContent(given_content);
 		
 		try {
-			this.action = AgentAction.values()[content[0]];			
+			this.action = AgentAction.values()[given_content.get("action").asInt()];			
 		}catch (ArrayIndexOutOfBoundsException e) {
 			System.err.println("Recieved unknown agent action");
 		}
 		
-		return new byte[] {};
 	}
 
 	@Override
-	protected byte[] encodeRequest(byte[] base) {
+	protected ObjectNode encodeRequest(ObjectNode base) {
 
-		return super.encodeRequest(new byte[] {(byte)this.action.ordinal()});
+		if(base == null) {
+			base = this.mapper.createObjectNode();
+		}
+
+		base.put("action", this.action.ordinal());
+		
+		return super.encodeRequest(base);
 		
 	}
 

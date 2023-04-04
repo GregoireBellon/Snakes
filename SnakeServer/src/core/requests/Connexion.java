@@ -1,6 +1,10 @@
 package core.requests;
 
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import request_handling.MayBeResponse;
 
@@ -14,7 +18,7 @@ public class Connexion extends MayBeResponse{
 	private boolean con_ok;
 	
 
-	public Connexion(byte[] content){		
+	public Connexion(JsonNode content){		
 		super(content);	
 	}
 	
@@ -37,33 +41,32 @@ public class Connexion extends MayBeResponse{
 	}
 	
 	@Override
-	protected byte[] parseContent(byte[] given_content) {
+	protected void parseContent(JsonNode given_content) {
 				
-		byte[] content = super.parseContent(given_content);
-		
-		String transcripted_content = new String(content, StandardCharsets.UTF_8);		
-		
+		super.parseContent(given_content);
+				
 		if(!this.isResponse()) {
-			String[] splited = transcripted_content.split(";");
-			this.username = splited[0];
-			this.password = splited[1];			
+			this.username = given_content.get("username").asText();
+			this.password = given_content.get("password").asText();
 		}
 		else {
-			this.con_ok = transcripted_content.equals("ok");
+			this.con_ok = given_content.get("con_ok").asBoolean();
 		}
 		
-		return new byte[] {};		
 	}
 	
 	@Override
-	protected byte[] encodeRequest(byte[] base) {
+	protected ObjectNode encodeRequest(ObjectNode base) {
 		
 		if(!this.isResponse()) {
-			byte[] body = new String(username+";"+password).getBytes();			
-			return super.encodeRequest(body);
+//			byte[] body = new String(username+";"+password).getBytes();			
+			base.put("username", this.username);
+			base.put("password", this.password);
+			return super.encodeRequest(base);
 		}
-		byte[] body = new String(this.con_ok ? "ok" : "no").getBytes();
-		return super.encodeRequest(body);
+		
+		base.put("con_ok", this.con_ok);
+		return super.encodeRequest(base);
 	}
 	
 	public String getUsername() {

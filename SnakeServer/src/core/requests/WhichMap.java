@@ -2,6 +2,9 @@ package core.requests;
 
 import java.nio.charset.StandardCharsets;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
 import request_handling.MayBeResponse;
 import request_handling.Request;
 
@@ -11,7 +14,7 @@ public class WhichMap extends MayBeResponse {
 
 	private String map_selected; 
 	
-	public WhichMap(byte [] content) {
+	public WhichMap(JsonNode content) {
 		super(content);
 	}
 	
@@ -33,23 +36,28 @@ public class WhichMap extends MayBeResponse {
 	}
 
 	@Override
-	protected byte[] parseContent(byte[] given_content) {
+	protected void parseContent(JsonNode given_content) {
 		
-		byte[] content = super.parseContent(given_content);
+		super.parseContent(given_content);
 		
 		if(isResponse()) {
-			this.map_selected = new String(content, StandardCharsets.UTF_8);
+			this.map_selected = given_content.get("map_selected").asText();
 		}
 		
-		return content;
 	}
 
 	@Override
-	protected byte[] encodeRequest(byte[] base) {
+	protected ObjectNode encodeRequest(ObjectNode base) {
 		
-		byte[] returned = super.isResponse() ? this.getMapSelected().getBytes() : new byte[] {};
+		if(base == null) {
+			base = this.mapper.createObjectNode();
+		}
 		
-		return super.encodeRequest(returned);
+		if(this.isResponse()) {
+			base.put("map_selected", this.getMapSelected());			
+		}
+				
+		return super.encodeRequest(base);
 	}
 	
 	public String getMapSelected() {
