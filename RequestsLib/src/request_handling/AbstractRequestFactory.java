@@ -4,13 +4,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 public abstract class AbstractRequestFactory {
 
-	//	Cette classe permet essentiellement de remplacer un switch case;
-
+	protected final static ObjectMapper mapper = new ObjectMapper();
+	
 	public abstract Class<? extends Request>[] mapReqIdToClass();
 
-	public abstract Request fromBytes(byte[] content) throws NoSuchFieldException;
+	public abstract Request fromJson(JsonNode content) throws NoSuchFieldException;
 
 
 

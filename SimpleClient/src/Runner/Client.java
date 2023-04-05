@@ -22,13 +22,13 @@ public class Client {
 			
 			so = new Socket("localhost", 44444);
 			BufferedOutputStream message_sender = new BufferedOutputStream(so.getOutputStream());
-			message_sender.write(r.getSendable());
+			message_sender.write(r.getSendable().getBytes());
 			message_sender.flush();
 			
 			Thread.sleep(2000);
 			
 			message_sender = new BufferedOutputStream(so.getOutputStream());
-			message_sender.write(dc.getSendable());
+			message_sender.write(dc.getSendable().getBytes());
 			message_sender.flush();
 			so.close();			
 			

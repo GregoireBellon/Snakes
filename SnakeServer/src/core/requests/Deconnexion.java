@@ -4,6 +4,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
 import request_handling.Request;
 
 public class Deconnexion extends Request{
@@ -12,7 +15,7 @@ public class Deconnexion extends Request{
 	
 	private String username;
 	
-	public Deconnexion(byte[] content){		
+	public Deconnexion(JsonNode content){		
 		super(content);			
 	}
 	
@@ -27,20 +30,24 @@ public class Deconnexion extends Request{
 		return Deconnexion.ID;
 	}
 	
-	protected byte[] parseContent(byte[] given_content) {
+	protected void parseContent(JsonNode given_content) {
 		
-		byte[] content = super.parseContent(given_content);
+//		super.parseContent(given_content);
 		
-		String transcripted_content = new String(content, StandardCharsets.UTF_8);		
-				
-		this.username = transcripted_content;
+		this.username = given_content.get("username").asText();
 		
-		return new byte[] {};	
 	}
+		                
 	
-	protected byte[] encodeRequest(byte[] base) {
-						
-		return super.encodeRequest(this.username.getBytes());
+	protected ObjectNode encodeRequest(ObjectNode base) {
+		
+		if(base == null) {
+			base = this.mapper.createObjectNode();
+		}
+		
+		base.put("username", username);
+		
+		return super.encodeRequest(base);
 				
 	}
 		
