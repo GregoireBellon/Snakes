@@ -60,15 +60,12 @@ public class CustomRouter extends Router {
 			con_respon = new Connexion(false);
 		}
 		
+		try {
+			Sender.send(soc, con_respon);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
-		
-
-	
-		
-		
-		
-	
-		//		game.getOnlinePlayers().put(soc, null);
 	};
 
 	private FunctionRequest handle_deconnexion = (Request r, Socket soc) -> {

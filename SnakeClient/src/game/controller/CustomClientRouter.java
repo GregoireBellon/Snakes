@@ -29,6 +29,8 @@ public class CustomClientRouter extends Router {
        private FunctionRequest handle_connexion = (Request r, Socket soc) ->{
     	   Connexion c = (Connexion) r;
     	   
+    	   System.out.println("REQUETE DE CONNEXION REÇUE");
+    	   
     	   if(c.isResponse()) {
     		   
     		   if(c.isConOk()) {
@@ -60,9 +62,9 @@ public class CustomClientRouter extends Router {
 		MapState state = (MapState) r;
 		if(state.isResponse()) {
 			
-			System.out.println("Map state : " + state);
+//			System.out.println("Map state : " + state);
 			Context context = state.getContext();
-			System.out.println("Context recieved, size of items : " + context.getItems().size());
+//			System.out.println("Context recieved, size of items : " + context.getItems().size());
 			
 			this.controller.getMap().setStart_items(context.getItems());
 			this.controller.getMap().setStart_snakes(context.getSnakes());
