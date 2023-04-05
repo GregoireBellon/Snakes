@@ -1,16 +1,11 @@
 package core.requests;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.net.Socket;
 import java.nio.BufferUnderflowException;
-import java.nio.ByteBuffer;
-
 import com.fasterxml.jackson.databind.JsonNode;
 
 import core.requests.response.Response;

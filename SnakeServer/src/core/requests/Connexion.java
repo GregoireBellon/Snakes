@@ -1,8 +1,5 @@
 package core.requests;
 
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 

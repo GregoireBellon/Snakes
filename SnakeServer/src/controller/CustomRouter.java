@@ -1,6 +1,5 @@
 package controller;
 
-import java.awt.Color;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -11,7 +10,6 @@ import java.util.Map;
 import behavior.PlayerBehavior;
 import core.Context;
 import core.ServerSnakeGame;
-import core.SnakeGame;
 import core.requests.Connexion;
 import core.requests.Deconnexion;
 import core.requests.MapState;

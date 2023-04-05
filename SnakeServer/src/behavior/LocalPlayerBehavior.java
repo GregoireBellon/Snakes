@@ -4,12 +4,7 @@ import java.awt.Frame;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.HashMap;
-import java.util.List;
-
-import core.InputMap;
 import utils.AgentAction;
-import utils.Snake;
-import utils.items.Item;
 
 public class LocalPlayerBehavior extends PlayerBehavior{
 

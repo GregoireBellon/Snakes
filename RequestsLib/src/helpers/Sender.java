@@ -11,7 +11,7 @@ public class Sender {
        public static void send(Socket so, Request r) throws IOException {
     	   
                OutputStream message_sender = so.getOutputStream();
-               message_sender.write(r.getSendable());
+               message_sender.write(r.getSendable().getBytes());
                message_sender.flush();
        }
 }

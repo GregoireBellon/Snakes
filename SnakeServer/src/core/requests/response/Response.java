@@ -1,14 +1,8 @@
 package core.requests.response;
 
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-import helpers.ByteConversion;
 import request_handling.Request;
 
 public class Response extends Request{

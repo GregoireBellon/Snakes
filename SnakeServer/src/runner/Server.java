@@ -7,7 +7,6 @@ import controller.RemoteServerController;
 import core.InputMap;
 import core.ServerSnakeGame;
 import core.requests.RequestFactory;
-import server_tools.CommunicationBridge;
 
 public class Server {
 
@@ -17,7 +16,7 @@ public class Server {
 		
 		ServerSnakeGame game = new ServerSnakeGame(selected_map);
 		
-		ServerSocket so = new ServerSocket(44_464);
+		ServerSocket so = new ServerSocket(44_444);
 		
 		CustomRouter rev = new CustomRouter(game, new RequestFactory());
 		

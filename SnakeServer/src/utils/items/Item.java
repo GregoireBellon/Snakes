@@ -6,7 +6,6 @@ import java.util.List;
 
 import behavior.searchPathAlgorithm.Target;
 import core.LocalSnakeGame;
-import core.SnakeGame;
 import core.event.handler.EventType;
 import utils.Position;
 import utils.Snake;

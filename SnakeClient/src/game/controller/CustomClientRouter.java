@@ -60,6 +60,7 @@ public class CustomClientRouter extends Router {
 		MapState state = (MapState) r;
 		if(state.isResponse()) {
 			
+			System.out.println("Map state : " + state);
 			Context context = state.getContext();
 			System.out.println("Context recieved, size of items : " + context.getItems().size());
 			

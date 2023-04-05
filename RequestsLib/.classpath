@@ -11,17 +11,17 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/grego/Documents/FAC/S7/ProgReseau/workspace/RequestsLib/libs/jackson-databind-2.9.9.3.jar">
+	<classpathentry kind="lib" path="/home/grego/Documents/FAC/ProgReseau/workspace/RequestsLib/libs/jackson-databind-2.9.9.3.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/grego/Documents/FAC/S7/ProgReseau/workspace/RequestsLib/libs/jackson-core-2.14.0.jar">
+	<classpathentry kind="lib" path="/home/grego/Documents/FAC/ProgReseau/workspace/RequestsLib/libs/jackson-core-2.14.0.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/grego/Documents/FAC/S7/ProgReseau/workspace/RequestsLib/libs/jackson-annotations-2.9.9.jar">
+	<classpathentry kind="lib" path="/home/grego/Documents/FAC/ProgReseau/workspace/RequestsLib/libs/jackson-annotations-2.9.9.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>

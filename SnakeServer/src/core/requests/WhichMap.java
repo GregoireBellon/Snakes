@@ -1,12 +1,9 @@
 package core.requests;
 
-import java.nio.charset.StandardCharsets;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import request_handling.MayBeResponse;
-import request_handling.Request;
 
 public class WhichMap extends MayBeResponse {
 	

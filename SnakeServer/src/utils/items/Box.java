@@ -3,7 +3,6 @@ package utils.items;
 import java.util.Random;
 
 import core.LocalSnakeGame;
-import core.SnakeGame;
 import utils.EffectTypes;
 import utils.Snake;
 

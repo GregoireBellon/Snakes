@@ -1,8 +1,6 @@
 package utils.items;
 
-import core.Game;
 import core.LocalSnakeGame;
-import core.SnakeGame;
 import core.event.handler.Effect;
 import core.event.handler.Invincibility;
 import core.event.handler.Sick;

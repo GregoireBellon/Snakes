@@ -3,9 +3,6 @@ package server_unit_tests;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.StringBufferInputStream;
-import java.io.StringReader;
-import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -131,6 +128,8 @@ class RequestsTest {
 		JsonNode content = ms.fetchContent();
 //				
 		MapState new_ms = (MapState)  new RequestFactory().fromJson(content);
+		
+//		System.out.println(new_ms.getContext().getItems().size());
 		
 		assert new_ms.equals(ms);
 	}

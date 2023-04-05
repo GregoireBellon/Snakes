@@ -1,7 +1,6 @@
 package utils.items;
 
 import core.LocalSnakeGame;
-import core.SnakeGame;
 import core.event.handler.Sick;
 import utils.Snake;
 

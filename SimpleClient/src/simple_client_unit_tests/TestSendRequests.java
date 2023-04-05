@@ -32,29 +32,29 @@ class TestSendRequests {
 	
 	@Test
 	void testConnexion() throws IOException {
-		Connexion r = new Connexion("Jhon", "azerty");
+		Connexion r = new Connexion("laura_jones@mail.fr", "laulau");
 		
-		message_sender.write(r.getSendable());
+		message_sender.write(r.getSendable().getBytes());
 		message_sender.flush();
 	}
 	
 	@Test
 	void testDeconnexion() throws IOException {
 		
-		Deconnexion r = new Deconnexion("Jhon");
-		message_sender.write(r.getSendable());
+		Deconnexion r = new Deconnexion("laura_jones@mail.fr");
+		message_sender.write(r.getSendable().getBytes());
 		message_sender.flush();
 		
 	}
 	
 	@Test
 	void testSeveralRequests() throws IOException, InterruptedException {
-		Connexion r = new Connexion("Jhon", "azerty");
+		Connexion r = new Connexion("laura_jones@mail.fr", "laulau");
 		Thread.sleep(200);
-		Deconnexion r2 = new Deconnexion("Jhon");
+		Deconnexion r2 = new Deconnexion("laura_jones@mail.fr");
 		
-		message_sender.write(r.getSendable());
-		message_sender.write(r2.getSendable());
+		message_sender.write(r.getSendable().getBytes());
+		message_sender.write(r2.getSendable().getBytes());
 		message_sender.flush();
 	}
 

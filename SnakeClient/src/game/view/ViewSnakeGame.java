@@ -5,8 +5,6 @@ import java.awt.GraphicsEnvironment;
 import java.awt.Point;
 import java.util.List;
 
-import javax.swing.JFrame;
-
 import controller.AbstractController;
 import utils.FeaturesSnake;
 import utils.items.FeaturesItem;
