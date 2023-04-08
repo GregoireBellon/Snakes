@@ -16,7 +16,7 @@ public class WhichMap extends MayBeResponse {
 	}
 	
 	
-	public WhichMap(String map_selected) {
+	public WhichMap(String map_selected, int game_id) {
 		super(true);
 		this.map_selected = map_selected;
 	}
@@ -51,7 +51,7 @@ public class WhichMap extends MayBeResponse {
 		}
 		
 		if(this.isResponse()) {
-			base.put("map_selected", this.getMapSelected());			
+			base.put("map_selected", this.getMapSelected());
 		}
 				
 		return super.encodeRequest(base);

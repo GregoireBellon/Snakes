@@ -12,6 +12,8 @@ public class Connexion extends MayBeResponse{
 	private String username;
 	private String password; 
 	
+	private String map;
+	
 	private boolean con_ok;
 	
 
@@ -26,9 +28,10 @@ public class Connexion extends MayBeResponse{
 		this.password = password;		
 	}
 	
-	public Connexion(boolean con_ok) {
+	public Connexion(boolean con_ok, String map) {
 		super(true);
 		this.con_ok = con_ok;
+		this.map = map;
 	}
 	
 
@@ -47,6 +50,7 @@ public class Connexion extends MayBeResponse{
 			this.password = given_content.get("password").asText();
 		}
 		else {
+			this.map = given_content.get("map").asText();
 			this.con_ok = given_content.get("con_ok").asBoolean();
 		}
 		
@@ -62,6 +66,7 @@ public class Connexion extends MayBeResponse{
 			return super.encodeRequest(base);
 		}
 		
+		base.put("map", this.map);
 		base.put("con_ok", this.con_ok);
 		return super.encodeRequest(base);
 	}
@@ -80,6 +85,10 @@ public class Connexion extends MayBeResponse{
 	
 	public void setConOk(boolean con_ok) {
 		this.con_ok = con_ok;
+	}
+
+	public String getMap() {
+		return map;
 	}
 	
 }

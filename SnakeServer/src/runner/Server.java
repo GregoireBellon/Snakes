@@ -7,6 +7,7 @@ import controller.RemoteServerController;
 import core.InputMap;
 import core.ServerSnakeGame;
 import core.requests.RequestFactory;
+import server_tools.CommunicationBridge;
 
 public class Server {
 
@@ -14,20 +15,23 @@ public class Server {
 		
 		InputMap selected_map = new InputMap("./res/maps/online_aloneNoWall.lay");
 		
-		ServerSnakeGame game = new ServerSnakeGame(selected_map);
+//		ServerSnakeGame game = new ServerSnakeGame(selected_map);
 		
 		ServerSocket so = new ServerSocket(44_444);
 		
-		CustomRouter rev = new CustomRouter(game, new RequestFactory());
+		CustomRouter rev = new CustomRouter(new RequestFactory());
 		
+		CommunicationBridge bridge = new CommunicationBridge(so, rev);
 		
-		System.out.println("creating controller");
+		bridge.listen();
+		
+//		System.out.println("creating controller");
 
-		RemoteServerController controller = new RemoteServerController(rev, game, so);
+//		RemoteServerController controller = new RemoteServerController(rev, game, so);
 		
-		System.out.println("controller created");
+//		System.out.println("controller created");
 		
-		controller.play();
+//		controller.play();
 				
 	}
 }

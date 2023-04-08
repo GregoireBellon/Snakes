@@ -56,13 +56,11 @@ public class MapState extends MayBeResponse{
 
 		}
 
-		System.out.println("Parsing ");
-
 		try {
 
 			List<FeaturesItem> items = MapState.mapper.readValue(MapState.mapper.treeAsTokens(given_content.get("items")), new TypeReference<List<FeaturesItem>>() {});
 			List<FeaturesSnake> snakes = MapState.mapper.readValue(MapState.mapper.treeAsTokens(given_content.get("snakes")), new TypeReference<List<FeaturesSnake>>() {});
-
+			
 			this.context = new Context(snakes, items);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

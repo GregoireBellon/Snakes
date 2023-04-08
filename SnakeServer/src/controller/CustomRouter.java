@@ -9,7 +9,10 @@ import java.util.Map;
 
 import behavior.PlayerBehavior;
 import core.Context;
+import core.Game;
+import core.InputMap;
 import core.ServerSnakeGame;
+import core.SnakeGame;
 import core.requests.Connexion;
 import core.requests.Deconnexion;
 import core.requests.MapState;
@@ -31,11 +34,16 @@ import utils.Snake;
 
 public class CustomRouter extends Router {
 
-	private ServerSnakeGame game;
+	
+	private Map<Socket, ServerSnakeGame> game_affectations;
+	
+	private List<RemoteServerController> games; 
 
-	public CustomRouter(ServerSnakeGame game, AbstractRequestFactory req_fac){
+	public CustomRouter(AbstractRequestFactory req_fac){
 		super(req_fac);
-		this.game = game;
+//		this.game = game;
+		this.games = new ArrayList<RemoteServerController>();
+		this.game_affectations = new HashMap<Socket, ServerSnakeGame>();
 		
 	}
 
@@ -51,16 +59,58 @@ public class CustomRouter extends Router {
 		Connexion con_respon = null;
 //		SI TOUT EST OK
 		if(authquery.getAuth(c.getUsername(), c.getPassword())) {
-			con_respon = new Connexion(true);
-			game.addOnlinePlayer(soc, new Snake(new FeaturesSnake(positions, AgentAction.MOVE_DOWN, ColorSnake.Green, false, false), new PlayerBehavior(), game));
+			
+			RemoteServerController controller = null;
+			
+			if(this.games.size()==0 || this.games.get(this.games.size()-1).getGame().getOnlinePlayers().size() > 2) {
+				
+				InputMap new_im;
+				
+				try {
+					new_im = new InputMap("./res/maps/online_aloneNoWall.lay");
+				} catch (Exception e) {
+					e.printStackTrace();
+					return;
+				}
+				ServerSnakeGame new_game = new ServerSnakeGame(new_im);
+				
+				controller = new RemoteServerController(new_game);
+				
+				this.games.add(controller);				
+				
+			}
+			else {
+				
+				System.out.println("Connexion à une game déja existante");
+				
+				controller = this.games.get(this.games.size() - 1);
+				
+			}
+			
+			this.game_affectations.put(soc, controller.getGame());
+
+			controller.getGame().addOnlinePlayer(soc, new Snake(new FeaturesSnake(positions, AgentAction.MOVE_DOWN, ColorSnake.Green, false, false), new PlayerBehavior(), controller.getGame()));
+			
+			
+			if((!controller.getGame().getIsRunning()) && (controller.getGame().getOnlinePlayers().size() == 2)) {
+				controller.play();				
+			}
+			
+			
+			String splitted[] = controller.getGame().getMap().getFilename().split("/");
+			String map_name = splitted[splitted.length - 1];
+
+			con_respon = new Connexion(true, map_name);
+
 		}
 		
 //		SINON
 		else {
-			con_respon = new Connexion(false);
+			con_respon = new Connexion(false, "");
 		}
 		
 		try {
+			System.out.println("ENVOI DE LA REPONSE");
 			Sender.send(soc, con_respon);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -70,7 +120,8 @@ public class CustomRouter extends Router {
 
 	private FunctionRequest handle_deconnexion = (Request r, Socket soc) -> {
 		Deconnexion c = (Deconnexion) r;
-		game.removeOnlinePlayer(soc);
+		
+		game_affectations.get(soc).removeOnlinePlayer(soc);
 	};
 	
 	private FunctionRequest handle_response = (Request r, Socket soc) -> {
@@ -83,28 +134,33 @@ public class CustomRouter extends Router {
 		WhichMap w = (WhichMap) r;
 		System.out.println("Requête whichmap reçue");
 		
-		if(!w.isResponse()) {
-	
-			String splitted[] = game.getMap().getFilename().split("/");
-			String map_name = splitted[splitted.length - 1];
+//		if(!w.isResponse()) {
 			
-			try {
-				System.out.println("Taille dans le jeu AVANT SEND: " + this.game.getOnlinePlayers().size());
-				Sender.send(soc, new WhichMap(map_name));
-				System.out.println("Taille dans le jeu Apres SEND: " + this.game.getOnlinePlayers().size());
-			} catch (IOException e) {
-
-				System.err.println("Counldn't send WichMap request to " + soc.getInetAddress().toString() + " : ");
-				e.printStackTrace();
-
-			}
-		}
+//			SnakeGame new_game = new SnakeGame("./res/maps/online_aloneNoWall.lay");
+//			RemoteServerController new_controller = new RemoteServerController(new_game);
+//			
+//			this.games.add(new_controller.getGame().addOnlinePlayer(null, null));
+//	
+//			String splitted[] = game.getMap().getFilename().split("/");
+//			String map_name = splitted[splitted.length - 1];
+			
+//			try {
+//				System.out.println("Taille dans le jeu AVANT SEND: " + this.game.getOnlinePlayers().size());
+//				Sender.send(soc, new WhichMap(map_name));
+//				System.out.println("Taille dans le jeu Apres SEND: " + this.game.getOnlinePlayers().size());
+//			} catch (IOException e) {
+//
+//				System.err.println("Counldn't send WichMap request to " + soc.getInetAddress().toString() + " : ");
+//				e.printStackTrace();
+//
+//			}
+//		}
 	};
 	
 	private FunctionRequest handle_playerinput = (Request r, Socket soc) -> {
 		PlayerInput w = (PlayerInput) r;
 		System.out.println("Input from " + soc.getInetAddress() + " : " + w.getAction());
-		PlayerBehavior behavior = (PlayerBehavior) this.game.getOnlinePlayers().get(soc).getBehavior();
+		PlayerBehavior behavior = (PlayerBehavior) this.game_affectations.get(soc).getOnlinePlayers().get(soc).getBehavior();
 		behavior.setLastAction(w.getAction());
 	};
 	
@@ -112,9 +168,10 @@ public class CustomRouter extends Router {
 	private FunctionRequest handle_mapstate = (Request r, Socket soc) -> {
 		
 		System.out.println("Requête MapState reçue");
+		ServerSnakeGame game = this.game_affectations.get(soc);
 		
 		try {
-		Sender.send(soc, new MapState(new Context(this.game.getMap().getStart_snakes(), this.game.getMap().getStart_items())));
+		Sender.send(soc, new MapState(new Context(game.getMap().getStart_snakes(), game.getMap().getStart_items())));
 		} catch (IOException e) {
 
 			System.err.println("Counldn't send MapState request to " + soc.getInetAddress().toString() + " : ");

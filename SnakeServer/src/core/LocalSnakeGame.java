@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import behavior.AgentBehavior;
+import behavior.NotThatDumbBehavior;
 import behavior.PlayerBehavior;
 import core.event.handler.EventType;
 import utils.MoveUtils;
@@ -21,7 +22,7 @@ public class LocalSnakeGame extends SnakeGame {
 	private List<AgentBehavior> behaviors; 
 	
 	private List<Item> items; 
-
+	
 	public LocalSnakeGame(int max_turn, InputMap map) {
 		super(max_turn, map);
 		this.behaviors = new ArrayList<AgentBehavior>();
@@ -45,22 +46,27 @@ public class LocalSnakeGame extends SnakeGame {
 
 		for(int i = 0; i < snakes.size(); i++) {
 			
-			if(i < behaviors.size()) {
-				this.agents.add(new Snake(snakes.get(i), this.behaviors.get(i), this));
-			}else
-			{
-				this.agents.add(new Snake(snakes.get(i), new PlayerBehavior(), this));
-			}
+//			if(i < behaviors.size()) {
+//				this.agents.add(new Snake(snakes.get(i), this.behaviors.get(i), this));
+//			}else
+//			{
+				this.agents.add(new Snake(snakes.get(i), new NotThatDumbBehavior(), this));
+//			}
 		}
-		System.out.println("Game initialized");
+
 	}
 
 	@Override
 	public void takeTurn() {
 
 		for(Snake agent : agents) {
+			
+			System.out.println(agent.getBehavior());
+			
 			AgentAction aa = agent.play(this.getMap());
-			//			System.out.println("joué : "+aa.toString());
+			
+			System.out.println("joué : "+aa.toString());
+			
 			if(!agent.getAlive()) continue; 			
 
 
@@ -70,7 +76,7 @@ public class LocalSnakeGame extends SnakeGame {
 			else {
 				agent.getFeaturesSnake().setSick(true);
 				agent.setAlive(false);
-				System.out.println("illegal move");
+							
 			}
 
 			caseEffects(agent);

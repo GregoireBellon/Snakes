@@ -24,6 +24,7 @@ public class ConnexionView extends JFrame {
 	private static final long serialVersionUID = -4886360637794094501L;
 	
 
+	private JLabel err_message;
 	private JTextField serv_url;
 	private JTextField username;
 	private JTextField password;
@@ -53,6 +54,8 @@ public class ConnexionView extends JFrame {
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(2, 0));
 		
+		this.err_message = new JLabel("");
+		
 		this.serv_url = new JTextField();
 		this.username = new JTextField();
 		this.password = new JPasswordField();
@@ -65,6 +68,8 @@ public class ConnexionView extends JFrame {
 				
 		form.setLayout(new BoxLayout(form, BoxLayout.PAGE_AXIS));
 		
+		form.add(err_message);
+
 		form.add(new JLabel("URL du serveur (ip:port)"));
 		form.add(serv_url);
 
@@ -73,15 +78,23 @@ public class ConnexionView extends JFrame {
 		form.add(new JLabel("Password"));
 		form.add(password);
 		
+		
+		
 		JButton submit = new JButton("Jouer");
 		
 		submit.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				controller.setConnexion(serv_url.getText() ,username.getText(), password.getText());
-				controller.play();
-//				setVisible(false);
+					
+				if(controller.setConnexion(serv_url.getText() ,username.getText(), password.getText())) {
+					controller.play();					
+					setVisible(false);
+				}
+				else{
+					err_message.setText(controller.getErrorMessage());
+				}
+				
 			}
 		});		
 		form.add(submit);

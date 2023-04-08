@@ -1,5 +1,6 @@
 package game.controller;
 
+import java.net.ConnectException;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,32 +35,27 @@ public class CustomClientRouter extends Router {
     	   if(c.isResponse()) {
     		   
     		   if(c.isConOk()) {
-//    			   continue normalement
+    			    controller.map_name = c.getMap();
+    	        	controller.map_known = true;
     		   }
     		   else {
-//    			   message d'erreur dans l'interface connexion
-//    			   jeu ne se lance pas
+    			   this.controller.setError(true);
+    			   this.controller.setErrorMessage("Erreur de connexion : mauvais combo login / password");
     		   }
 
-    	   }
-    	   else {
-//    		   ignorer
-    	   }
-    	   
+    	   }    	   
        };
        
    	private FunctionRequest handle_whichmap = (Request r, Socket soc) -> {
-        WhichMap c = (WhichMap) r;
-        
-        if(c.isResponse()) {
-        	System.out.println("Réponse reçue : " + c.getMapSelected());
-        	controller.map_name = c.getMapSelected();
-        	controller.map_known = true;
-        }
 };
 
 	private FunctionRequest handle_mapstate =(Request r, Socket soc) -> {
 		MapState state = (MapState) r;
+		
+		if(!controller.isClientReady()) {
+			return;
+		}
+		
 		if(state.isResponse()) {
 			
 //			System.out.println("Map state : " + state);

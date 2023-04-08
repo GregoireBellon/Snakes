@@ -17,6 +17,7 @@ public class TestRun {
 //		ConnexionView view = new ConnexionView(controller);
 
 		controller.setConnexion("localhost:44444","laura_jones@mail.fr", "laulau");
+//		controller.setConnexion("localhost:44444","jean_leroi@mail.fr", "jeanjean");
 		
 		controller.play();
 		

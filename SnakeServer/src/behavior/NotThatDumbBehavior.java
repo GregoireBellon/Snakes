@@ -21,6 +21,9 @@ public class NotThatDumbBehavior implements AgentBehavior {
 
 	@Override
 	public AgentAction playTurn(InputMap m, Snake s, List<Snake> agents, List<Item> items) {
+		
+		System.out.println("not that dumb plays turn");
+		
 		ArrayList<AgentAction> availables_actions = new ArrayList<AgentAction>(Arrays.asList(AgentAction.values()));
 
 		AgentAction action_selected = null;
