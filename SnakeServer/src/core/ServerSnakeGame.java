@@ -154,14 +154,14 @@ public class ServerSnakeGame extends LocalSnakeGame {
 		Position[] points = {new Position(2,2), new Position(this.getMap().getSizeX() -2, 2), new Position(2, this.getMap().getSizeY() -2), new Position(this.getMap().getSizeX() -2, this.getMap().getSizeY() -2)};
 			
 		int min_id = 0;
-		int min_dist = 10000;
+		int max_dist = 0;
 		
 		for(int i = 0; i < points.length; i++) {
 			
 			int dist_res = getMinDistanceFromAgent(points[i]);
 			
-			if(dist_res < min_dist) {
-				min_dist = dist_res;
+			if(dist_res > max_dist) {
+				max_dist = dist_res;
 				min_id = i;
 			}
 			

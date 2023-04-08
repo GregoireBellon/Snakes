@@ -12,14 +12,27 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class AuthQuery {
 	
+	private String email;
+	private String password;
+	
+	private boolean con_ok;
+	private UserDescription response;
+	
+	
+	
+	public AuthQuery(String email, String password){
+		this.email = email;
+		this.password = password;
+		this.con_ok = false;
+	}
 		
-	public boolean getAuth(String email, String password) {
+	public boolean getAuth() {
 	    try {
 	       
 	        ObjectMapper objectMapper = new ObjectMapper();
 	        ObjectNode authJson = objectMapper.createObjectNode();
-	        authJson.put("mail", email);
-	        authJson.put("password", password);
+	        authJson.put("mail", this.email);
+	        authJson.put("password", this.password);
 
 	        String encodedAuthJson = objectMapper.writeValueAsString(authJson);
 
@@ -44,20 +57,34 @@ public class AuthQuery {
 	                responseBody += line;
 	            }
 	        }
-	        System.out.println("La réponse : " +responseBody);
+
 	        int statusCode = connection.getResponseCode();
-	        if (statusCode == 401) {
-	            return false;
-	        } else if (statusCode == 200) {
-	            return true;
-	        } else {
-	            // handle other status codes if needed
-	            return false;
-	        }
+	        
+	        if (statusCode != 200) {
+	            this.con_ok = false;
+		        return this.con_ok;
+	        } 
+
+	        ObjectMapper mapper = new ObjectMapper();
+	        this.response = mapper.readValue(responseBody, UserDescription.class);
+	        
+	        this.con_ok =  true;
+	        return this.con_ok;
+
+	    
 	    } catch (IOException e) {
 	        e.printStackTrace();
-	        return false;
+	        this.con_ok =  false;
+	        return this.con_ok;
 	    }
+	}
+
+	public UserDescription getResponse() {
+		return response;
+	}
+
+	public boolean isConOk() {
+		return con_ok;
 	}
 	}
 

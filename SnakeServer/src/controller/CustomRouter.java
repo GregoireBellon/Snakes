@@ -49,16 +49,15 @@ public class CustomRouter extends Router {
 
 	private FunctionRequest handle_connexion = (Request r, Socket soc) -> {
 		Connexion c = (Connexion) r;
-		AuthQuery authquery= new AuthQuery();
 		List<Position> positions = new ArrayList<Position>();
 		
 		positions.add(new Position(5,5));
 		System.out.println("Identifiants : " + c.getUsername() + " " + c.getPassword());
+		AuthQuery authquery= new AuthQuery(c.getUsername(), c.getPassword());
 		
-		System.out.println("La requete a renvoyée :" +authquery.getAuth(c.getUsername(), c.getPassword()));
 		Connexion con_respon = null;
 //		SI TOUT EST OK
-		if(authquery.getAuth(c.getUsername(), c.getPassword())) {
+		if(authquery.getAuth()) {
 			
 			RemoteServerController controller = null;
 			
@@ -89,7 +88,13 @@ public class CustomRouter extends Router {
 			
 			this.game_affectations.put(soc, controller.getGame());
 
-			controller.getGame().addOnlinePlayer(soc, new Snake(new FeaturesSnake(positions, AgentAction.MOVE_DOWN, ColorSnake.Green, false, false), new PlayerBehavior(), controller.getGame()));
+			
+			
+			ColorSnake skin = ColorSnake.fromString(authquery.getResponse().getCurrent_skin());
+			
+			System.out.println("SKIN : " + authquery.getResponse().getCurrent_skin());
+			
+			controller.getGame().addOnlinePlayer(soc, new Snake(new FeaturesSnake(positions, AgentAction.MOVE_DOWN, skin, false, false), new PlayerBehavior(), controller.getGame()));
 			
 			
 			if((!controller.getGame().getIsRunning()) && (controller.getGame().getOnlinePlayers().size() == 2)) {

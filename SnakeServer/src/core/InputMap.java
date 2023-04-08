@@ -37,7 +37,7 @@ public class InputMap implements Serializable{
 
 		
 	
-	ColorSnake[] colorSnake = {ColorSnake.Green,ColorSnake.Red};
+	ColorSnake[] colorSnake = {ColorSnake.Green,ColorSnake.Fade};
 
 
 	public InputMap(String filename) throws Exception{

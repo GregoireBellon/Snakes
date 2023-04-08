@@ -165,11 +165,13 @@ public class PanelSnakeGame extends JPanel{
 			}
 			
 			try {
-				if(featuresSnake.getColorSnake() == ColorSnake.Green) {
-					img = ImageIO.read(new File("res/images/snake_green_" + cpt_img + ".png"));
-				} else if(featuresSnake.getColorSnake() == ColorSnake.Red ) {
-					img = ImageIO.read(new File("res/images/snake_red_" + cpt_img + ".png"));	
-				}
+//				if(featuresSnake.getColorSnake() == ColorSnake.Green) {
+//					img = ImageIO.read(new File("res/images/snake_green_" + cpt_img + ".png"));
+//				} else if(featuresSnake.getColorSnake() == ColorSnake.Red ) {
+//					img = ImageIO.read(new File("res/images/snake_red_" + cpt_img + ".png"));	
+//				}
+				
+				img = ImageIO.read(new File("res/skins/" + featuresSnake.getColorSnake().toString() + "_" + cpt_img +".png"));
 		
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
