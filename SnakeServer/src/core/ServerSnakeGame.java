@@ -85,14 +85,14 @@ public class ServerSnakeGame extends LocalSnakeGame {
 	}
 
 	public void addOnlinePlayer(Socket so, Snake snake) {
-		this.getAgents().add(snake);
+//		this.getAgents().add(snake);
 
-		this.getMap().getStart_snakes().add(snake.getFeaturesSnake());
 
 		this.online_players.put(so, snake);
 
 		if(this.getIsRunning()) {
 			this.getAgents().add(snake);
+			this.getMap().getStart_snakes().add(snake.getFeaturesSnake());
 		}
 		
 	}
@@ -118,7 +118,8 @@ public class ServerSnakeGame extends LocalSnakeGame {
 			pos.add(spawn);
 			
 			this.getAgents().add(online);
-			
+			this.getMap().getStart_snakes().add(online.getFeaturesSnake());
+
 		}
 
 	}
