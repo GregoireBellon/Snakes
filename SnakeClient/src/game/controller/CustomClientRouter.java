@@ -11,7 +11,9 @@ import core.requests.Connexion;
 import core.requests.MapState;
 import core.requests.WhichMap;
 import core.requests.response.Response;
+import core.requests.response.ResponseStatus;
 import request_handling.AbstractRequestFactory;
+import request_handling.EndRoutine;
 import request_handling.FunctionRequest;
 import request_handling.Request;
 import request_handling.Router;
@@ -22,8 +24,8 @@ public class CustomClientRouter extends Router {
 	
 	RemoteSnakeController controller;
                
-       public CustomClientRouter(AbstractRequestFactory factory, RemoteSnakeController controller) {
-		super(factory);
+       public CustomClientRouter(AbstractRequestFactory factory, RemoteSnakeController controller, EndRoutine end) {
+		super(factory, end);
 		this.controller = controller;
 	}
 
@@ -72,9 +74,9 @@ public class CustomClientRouter extends Router {
 
 
 	private FunctionRequest handle_response = (Request r, Socket soc) -> {
-//               Response c = (Response) r;
-//               System.out.println("Réponse reçue : " + c.getMessage());
-       };
+               Response res = (Response) r;
+               
+	};
 
                
        

@@ -3,6 +3,7 @@ package core.requests.response;
 public enum ResponseStatus {
 	OK,
 	KO,
+	END, 
 	Other;
 	
 	public static ResponseStatus fromByte(byte val) throws NoSuchFieldException{

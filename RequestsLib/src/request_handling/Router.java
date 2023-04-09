@@ -8,10 +8,20 @@ public abstract class Router{
 
 
 	private AbstractRequestFactory factory;
+	private boolean stop;
+	private EndRoutine end;
 
-
-	public Router(AbstractRequestFactory factory) {
+	
+	public Router(AbstractRequestFactory factory, EndRoutine end) {
 		this.factory = factory;
+		this.stop = false;
+		this.end = end;
+
+	}
+	
+	public Router(AbstractRequestFactory factory) {
+	this(factory, null);
+	
 	}
 
 
@@ -34,7 +44,7 @@ public abstract class Router{
 			@Override
 			public void run() {
 				try {
-					while(true) {
+					while(!stop) {
 
 						try {							
 						
@@ -42,7 +52,8 @@ public abstract class Router{
 
 						}catch(NullPointerException e) {
 //							cette exception arrive lorsque l'objet json passe mal (par exemple lorsque le socket est rompu pendant la diffusion
-							break;
+							System.err.println("Sortie du router");
+							stop();
 						}
 					}
 
@@ -58,12 +69,21 @@ public abstract class Router{
 						so.close();
 					}catch(IOException e) {}
 				}
+				
+				if(end!=null) {
+					end.end();
+				}
 			}
-	});  
+			
+	}, "ROUTER");  
 
 
 		t1.start();
 
+}
+	
+public void stop() {
+	this.stop = true;
 }
 
 public abstract Map<Integer, FunctionRequest> requestRoutes();

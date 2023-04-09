@@ -40,12 +40,18 @@ public class CustomRouter extends Router {
 	private Map<Socket, ServerSnakeGame> game_affectations;
 
 	private List<RemoteServerController> games; 
+	
+	private int min_per_game;
+	private int max_per_game;
 
-	public CustomRouter(AbstractRequestFactory req_fac){
+	public CustomRouter(AbstractRequestFactory req_fac, int min_per_game, int max_per_game){
 		super(req_fac);
 //		this.game = game;
 		this.games = new ArrayList<RemoteServerController>();
 		this.game_affectations = new HashMap<Socket, ServerSnakeGame>();
+		
+		this.min_per_game = min_per_game;
+		this.max_per_game = max_per_game;
 		
 	}
 
@@ -63,7 +69,7 @@ public class CustomRouter extends Router {
 			
 			RemoteServerController controller = null;
 			
-			if(this.games.size()==0 || this.games.get(this.games.size()-1).getGame().getOnlinePlayers().size() > 2) {
+			if(this.games.size()==0 || this.games.get(this.games.size()-1).getGame().getOnlinePlayers().size() >= max_per_game) {
 				
 				InputMap new_im;
 				
@@ -101,7 +107,7 @@ public class CustomRouter extends Router {
 			controller.getGame().addOnlinePlayer(soc, new Snake(new FeaturesSnake(positions, AgentAction.MOVE_DOWN, skin, false, false), new PlayerBehavior(), controller.getGame()));
 			
 			
-			if((!controller.getGame().getIsRunning()) && (controller.getGame().getOnlinePlayers().size() == 2)) {
+			if((!controller.getGame().getIsRunning()) && (controller.getGame().getOnlinePlayers().size() >= min_per_game)) {
 				controller.play();				
 			}
 			

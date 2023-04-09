@@ -46,7 +46,7 @@ public abstract class Game implements Runnable, Observable{
 
 	public void launch() {
 		this.is_running = true; 
-		this.thread = new Thread(this);
+		this.thread = new Thread(this, "GAME");
 		this.thread.start();
 	}
 
@@ -93,7 +93,7 @@ public abstract class Game implements Runnable, Observable{
 			try {
 				Thread.sleep(SLEEP_TIME_MS);
 			} catch (Exception e) {
-				System.out.println("Erreur lors du sleep : " + e.getMessage());
+				System.out.println("Fin du jeu");
 			}
 		}
 

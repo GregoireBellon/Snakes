@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.ConnectException;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Set;
 
 import controller.AbstractController;
 import core.InputMap;
@@ -19,13 +20,15 @@ import game.core.event.handler.SnakeMovedHandler;
 import game.view.PanelSnakeGame;
 import game.view.ViewSnakeGame;
 import helpers.Sender;
+import request_handling.EndRoutine;
 import utils.FeaturesSnake;
 import utils.items.FeaturesItem;
 
 public class RemoteSnakeController extends AbstractController {
 
        private ViewSnakeGame view_snake;
-       private CustomClientRouter router;
+
+	private CustomClientRouter router;
        private Socket server_socket;
        
        private String server_url;
@@ -87,8 +90,18 @@ public class RemoteSnakeController extends AbstractController {
             if(!testConnexion()) {
             	return false;
             }
+            
+            EndRoutine end = new EndRoutine() {
+				@Override
+				public void end() {
+	            	  getGame().stop();
+	            	  getViewSnake().dispose();
 
-            this.router = new CustomClientRouter(new RequestFactory(), this);
+	            	  System.exit(0);
+				}
+			};
+
+            this.router = new CustomClientRouter(new RequestFactory(), this, end);
             this.router.listenToSocket(this.server_socket);
             
 			try {
@@ -196,6 +209,9 @@ public class RemoteSnakeController extends AbstractController {
 		return this.error_message;
 	}
 
-       
+    public ViewSnakeGame getViewSnake() {
+		return view_snake;
+	}
+
 }
 

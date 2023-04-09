@@ -36,13 +36,19 @@ public class GameOverHandler implements PropertyChangeListener {
 
 		
 		System.out.println("Cleaning the instances of " + controller.getGame());
+		
+		controller.getGame().stop();
+		
 		this.router.getGame_affectations().replaceAll((socket, game) -> {
-			try {
-				socket.close();
-			} catch (IOException e) {
-				e.printStackTrace();
+			if(game == controller.getGame()) {
+				try {
+					socket.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
+				return null;
 			}
-			if(game == controller.getGame()) return null;
 		return game;});
 		this.router.getGames().remove(controller);
 				
