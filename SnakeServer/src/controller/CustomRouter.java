@@ -30,6 +30,7 @@ import utils.AgentAction;
 import utils.AuthQuery;
 import utils.ColorSnake;
 import utils.FeaturesSnake;
+import utils.OnlineSnake;
 import utils.Position;
 import utils.Snake;
 
@@ -104,7 +105,9 @@ public class CustomRouter extends Router {
 			
 			System.out.println("SKIN : " + authquery.getResponse().getCurrent_skin());
 			
-			controller.getGame().addOnlinePlayer(soc, new Snake(new FeaturesSnake(positions, AgentAction.MOVE_DOWN, skin, false, false), new PlayerBehavior(), controller.getGame()));
+			controller.getGame().addOnlinePlayer(soc, new OnlineSnake(
+										new FeaturesSnake(positions, AgentAction.MOVE_DOWN, skin, false, false), 
+										new PlayerBehavior(), controller.getGame(),authquery.getResponse()));
 			
 			
 			if((!controller.getGame().getIsRunning()) && (controller.getGame().getOnlinePlayers().size() >= min_per_game)) {

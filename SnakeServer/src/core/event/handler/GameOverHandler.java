@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import controller.CustomRouter;
 import controller.RemoteServerController;
+import utils.OnlineSnake;
 import utils.EndgameQuery;
 
 public class GameOverHandler implements PropertyChangeListener {
@@ -28,7 +29,9 @@ public class GameOverHandler implements PropertyChangeListener {
 		int[] ids = new int[this.controller.getGame().getGraveyard().size()];
 		int[] ranks = new int[this.controller.getGame().getGraveyard().size()];
 		for(int i =0;i<this.controller.getGame().getGraveyard().size();i++) {
-			ids[i] = i+1;
+			OnlineSnake snake = (OnlineSnake) this.controller.getGame().getGraveyard().get(i);
+			System.out.println("Description du snake :" + snake.getDescription().getId());
+			ids[i] = (int) snake.getDescription().getId();
 			ranks[i] = (this.controller.getGame().getGraveyard().size())-i;
 		}
 

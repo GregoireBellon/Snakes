@@ -19,7 +19,7 @@ public class Server {
 		
 		ServerSocket so = new ServerSocket(44_444);
 		
-		CustomRouter rev = new CustomRouter(new RequestFactory(), 1, 1);
+		CustomRouter rev = new CustomRouter(new RequestFactory(), 0, 2);
 		
 		CommunicationBridge bridge = new CommunicationBridge(so, rev);
 		
