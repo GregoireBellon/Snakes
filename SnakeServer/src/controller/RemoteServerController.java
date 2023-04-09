@@ -32,7 +32,7 @@ public class RemoteServerController extends AbstractController{
 //		this.bridge_thread.start();
 		
 		
-		ClientStateRefresher refresher = new ClientStateRefresher(game.getOnlinePlayers(), game.getMap());
+		ClientStateRefresher refresher = new ClientStateRefresher(game, game.getMap());
 		
 		
 		game.subscribe(EventType.SNAKE_MOVED, refresher);

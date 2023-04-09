@@ -114,7 +114,7 @@ class RequestsTest {
 		pos.add(new Position(10, 11));
 		pos.add(new Position(10, 12));
 		
-		mock_snakes.add(new FeaturesSnake(pos, AgentAction.MOVE_UP, ColorSnake.Red, false, false));
+		mock_snakes.add(new FeaturesSnake(pos, AgentAction.MOVE_UP, ColorSnake.Rainbow, false, false));
 		mock_snakes.add(new FeaturesSnake(pos, AgentAction.MOVE_DOWN, ColorSnake.Green, false, false));
 		
 		List<FeaturesItem> mock_items = new ArrayList<FeaturesItem>();

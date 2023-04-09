@@ -6,17 +6,17 @@ import java.util.Map;
 
 public abstract class Router{
 
-	
+
 	private AbstractRequestFactory factory;
-	
+
 
 	public Router(AbstractRequestFactory factory) {
 		this.factory = factory;
 	}
-	
-	
+
+
 	public void handle(Request r, Socket so) {
-		
+
 		Map<Integer, FunctionRequest> routes = this.requestRoutes();
 
 		if(routes.get(r.getID())!=null) {
@@ -33,34 +33,38 @@ public abstract class Router{
 		Thread t1 = new Thread(new Runnable() {
 			@Override
 			public void run() {
-				while(true) {
-					try {
+				try {
+					while(true) {
 
-						handle(factory.fromSocket(so), so);
+						try {							
 						
-					} catch (NoSuchFieldException | IOException e) {
-						System.out.println("Erreur de lecture de la requête de : "+so.getInetAddress());
-						e.printStackTrace();
-						break;
+						handle(factory.fromSocket(so), so);
 
-					} catch (InterruptedException e) {
-						System.out.println("Le socket a été rompu : connexion terminée !");
-						try {
-							so.close();
-						} catch (IOException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
+						}catch(NullPointerException e) {
+//							cette exception arrive lorsque l'objet json passe mal (par exemple lorsque le socket est rompu pendant la diffusion
+							break;
 						}
-						return;
 					}
+
+				} catch (NoSuchFieldException | IOException e) {
+					System.out.println("Erreur de lecture de la requête de : "+so.getInetAddress());
+					e.printStackTrace();
+
+				} catch (InterruptedException e) {
+					System.out.println("Le socket a été rompu : connexion terminée !");
+
+				}finally {
+					try {
+						so.close();
+					}catch(IOException e) {}
 				}
 			}
-		});  
-		
-	
+	});  
+
+
 		t1.start();
 
-	}
+}
 
-	public abstract Map<Integer, FunctionRequest> requestRoutes();
+public abstract Map<Integer, FunctionRequest> requestRoutes();
 }

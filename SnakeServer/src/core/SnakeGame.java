@@ -27,7 +27,7 @@ public abstract class SnakeGame extends Game {
 
 	@Override
 	public void gameOver() {
-		System.out.println("Fin du jeu");
+		super.gameOver();
 	}
 
 	public InputMap getMap() {

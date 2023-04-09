@@ -13,6 +13,8 @@ import core.Game;
 import core.InputMap;
 import core.ServerSnakeGame;
 import core.SnakeGame;
+import core.event.handler.EventType;
+import core.event.handler.GameOverHandler;
 import core.requests.Connexion;
 import core.requests.Deconnexion;
 import core.requests.MapState;
@@ -36,7 +38,7 @@ public class CustomRouter extends Router {
 
 	
 	private Map<Socket, ServerSnakeGame> game_affectations;
-	
+
 	private List<RemoteServerController> games; 
 
 	public CustomRouter(AbstractRequestFactory req_fac){
@@ -75,7 +77,9 @@ public class CustomRouter extends Router {
 				
 				controller = new RemoteServerController(new_game);
 				
-				this.games.add(controller);				
+				new_game.subscribe(EventType.GAME_OVER, new GameOverHandler(this, controller));
+				
+				this.games.add(controller);								
 				
 			}
 			else {
@@ -186,6 +190,18 @@ public class CustomRouter extends Router {
 
 		
 	};
+	
+	
+	public Map<Socket, ServerSnakeGame> getGame_affectations() {
+		return game_affectations;
+	}
+
+
+
+	public List<RemoteServerController> getGames() {
+		return games;
+	}
+
 	
 
 

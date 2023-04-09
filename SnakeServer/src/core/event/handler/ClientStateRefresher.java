@@ -10,25 +10,26 @@ import java.util.Map;
 
 import core.Context;
 import core.InputMap;
+import core.ServerSnakeGame;
 import core.requests.MapState;
 import helpers.Sender;
 import utils.Snake;
 
 public class ClientStateRefresher implements PropertyChangeListener {
 
-	private Map<Socket, Snake> connected_players;
+	private ServerSnakeGame game;
 	private InputMap map;
 
 
-	public ClientStateRefresher(Map<Socket, Snake> connected_players, InputMap map) {
-		this.connected_players = connected_players;
+	public ClientStateRefresher(ServerSnakeGame game, InputMap map) {
+		this.game = game;
 		this.map = map;
 	}
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 
-		List<Socket> player_list = new ArrayList<Socket>(this.connected_players.keySet());
+		List<Socket> player_list = new ArrayList<Socket>(this.game.getOnlinePlayers().keySet());
 		
 		System.out.println("Refreshing the context for " + player_list.size() + " players");
 		
@@ -39,8 +40,9 @@ public class ClientStateRefresher implements PropertyChangeListener {
 				Sender.send(player_socket, new MapState(context));
 			} catch (IOException e) {
 
-				System.err.println("Error while refreshing the state to all clients : ");
-				e.printStackTrace();
+				System.err.println("Erreur lors du rafraichissement du client : " + e.getMessage());
+				System.err.println("Nous allons éjecter " + player_socket);
+				this.game.removeOnlinePlayer(player_socket);
 				
 			}
 		}

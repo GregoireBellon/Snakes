@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.net.Socket;
+import java.net.SocketException;
 import java.nio.BufferUnderflowException;
 import com.fasterxml.jackson.databind.JsonNode;
 
@@ -60,29 +61,19 @@ public class RequestFactory extends AbstractRequestFactory {
 		
 		while(true) {
 			
-			char c = (char) is.read();
-			
-			if(c=='\n') {
+			int c = is.read();
+						
+			if((char) c=='\n' || c < 0) {
 				break;
+			}else {
+				line.append((char) c);				
 			}
-			
-			line.append(c);
-			
 		}
 				
-		System.out.println("Content : " + line.toString());
+//		System.out.println("Content : " + line.toString());
 		
 		JsonNode node = RequestFactory.mapper.readTree(line.toString());
-		
-//		byte[] request_size =  is.readNBytes(4);
-//
-//		ByteBuffer wrapped = ByteBuffer.wrap(request_size);
-//
-//		int num = wrapped.getInt();
-//
-//		wrapped = ByteBuffer.allocate(num);
-//		wrapped.put(is.readNBytes(num));
-
+	
 		return this.fromJson(node);		
 	}
 	
@@ -92,7 +83,7 @@ public class RequestFactory extends AbstractRequestFactory {
 		try {
 			return this.fromSendableStream(socket.getInputStream());
 
-		}catch(BufferUnderflowException e) {
+		}catch(BufferUnderflowException | SocketException e) {
 			//			Si le buffer ne peux plus lire de données, c'est que le socket a été fermé
 			throw new InterruptedException();
 		}

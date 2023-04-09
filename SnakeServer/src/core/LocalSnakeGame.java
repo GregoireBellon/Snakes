@@ -125,6 +125,7 @@ public class LocalSnakeGame extends SnakeGame {
 
 	@Override
 	public void gameOver() {
+		super.gameOver();
 		System.out.println("Fin du jeu");
 	}
 

@@ -145,5 +145,7 @@ public abstract class Game implements Runnable, Observable{
 
 	abstract public boolean gameContinue();
 
-	abstract public void gameOver();
+	public void gameOver() {
+		notifySubscribers(EventType.GAME_OVER, new PropertyChangeEvent(this, EventType.GAME_OVER.toString(), "", ""));
+	}
 }

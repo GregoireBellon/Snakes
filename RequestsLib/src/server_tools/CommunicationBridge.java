@@ -18,9 +18,9 @@ public class CommunicationBridge implements Runnable {
 	}
 
 	public void listen(){
+		Socket so = null; 
+		BufferedInputStream data_in = null;
 		try {
-			Socket so; 
-			BufferedInputStream data_in;
 
 			System.out.println("Serveur lancé, entrée dans la boucle");
 
@@ -39,7 +39,14 @@ public class CommunicationBridge implements Runnable {
 		} catch (SecurityException e) {
 			System.err.println("Erreur de sécurité : ");
 			e.printStackTrace();
+		}finally {
+			
+			try {
+				so.close();
+			}catch(IOException e) {}
+			
 		}
+			
 
 	}
 
