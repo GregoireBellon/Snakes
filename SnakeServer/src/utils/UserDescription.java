@@ -15,9 +15,21 @@ public class UserDescription {
 
 	private String current_skin;
 	
+	private Float money;
+	
 	public UserDescription() {}
 	
 	public UserDescription(long id, String name, String surname, String email, String pseudo, String current_skin) {
+		this.setId(id);
+		this.name = name;
+		this.surname = surname; 
+		this.email = email;
+		this.pseudo = pseudo;
+		this.current_skin = current_skin;
+		this.money = 0F;
+	}
+	
+	public UserDescription(long id, String name, String surname, String email, String pseudo, String current_skin, Float money) {
 		this.setId(id);
 		this.name = name;
 		this.surname = surname; 
@@ -73,5 +85,15 @@ public class UserDescription {
 	public void setId(long id) {
 		this.id = id;
 	}
+
+	public Float getMoney() {
+		return money;
+	}
+
+	public void setMoney(Float money) {
+		this.money = money;
+	}
+	
+	
 		
 }

@@ -21,7 +21,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class EndgameQuery {
 	
-	public void postQuery(int[] id_players,String map, Float duration,int[] ranks) {
+	public void postQuery(int[] id_players,String map, Float duration,int[] ranks, Float[] moneys) {
 		try {
 	        URL url = new URL("http://localhost:8080/WebSnake/Stats");
 
@@ -42,6 +42,7 @@ public class EndgameQuery {
 	        params.put("duration", duration);
 	        params.put("date", new Date());
 	        params.put("ranks", ranks);
+	        params.put("moneys", moneys);
 	        String requestBody = encodeParameters(params);
 
 	        byte[] requestBodyBytes = requestBody.getBytes(StandardCharsets.UTF_8);
