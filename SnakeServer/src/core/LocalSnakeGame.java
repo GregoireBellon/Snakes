@@ -6,7 +6,6 @@ import java.util.List;
 
 import behavior.AgentBehavior;
 import behavior.NotThatDumbBehavior;
-import behavior.PlayerBehavior;
 import core.event.handler.EventType;
 import utils.MoveUtils;
 import utils.AgentAction;

@@ -43,7 +43,7 @@ public class Response extends Request{
 	protected ObjectNode encodeRequest(ObjectNode base) {
 		
 		if(base == null) {
-			base = this.mapper.createObjectNode();
+			base = Request.mapper.createObjectNode();
 		}
 
 //		List<Byte> encoder = new ArrayList<Byte>();

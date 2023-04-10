@@ -11,6 +11,8 @@ import utils.items.FeaturesItem;
 
 public class ViewSnakeGame extends GameView {
 
+	private static final long serialVersionUID = 8841745008137285300L;
+	
 	private PanelSnakeGame panel_game;
 	
 	public ViewSnakeGame(AbstractController controller, PanelSnakeGame panel_game) {

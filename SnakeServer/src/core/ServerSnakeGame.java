@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import utils.EndgameQuery;
 import utils.MoveUtils;
 import utils.Position;
 import utils.Snake;
@@ -64,7 +63,6 @@ public class ServerSnakeGame extends LocalSnakeGame {
 
 	@Override
 	public void gameOver() {
-		// TODO Auto-generated method stub
 		super.gameOver();		
 	}
 
@@ -92,10 +90,15 @@ public class ServerSnakeGame extends LocalSnakeGame {
 	public void removeOnlinePlayer(Socket so) {
 		Snake player_snake = this.online_players.get(so);
 
-		this.getMap().getStart_snakes().remove(player_snake.getFeaturesSnake());
-		this.getAgents().remove(player_snake);
+		if(this.getIsRunning()) {
+			player_snake.setAlive(false);
+			player_snake.getFeaturesSnake().setSick(true);
+		}
 
-		this.online_players.remove(so);
+//		this.getMap().getStart_snakes().remove(player_snake.getFeaturesSnake());
+//		this.getAgents().remove(player_snake);
+//
+//		this.online_players.remove(so);
 	}
 	
 	@Override

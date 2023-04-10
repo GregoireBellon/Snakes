@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.net.ConnectException;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Set;
-
 import controller.AbstractController;
 import core.InputMap;
 import core.event.handler.EventType;

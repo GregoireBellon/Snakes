@@ -6,14 +6,11 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
 import core.Context;
 import core.InputMap;
 import core.ServerSnakeGame;
 import core.requests.MapState;
 import helpers.Sender;
-import utils.Snake;
 
 public class ClientStateRefresher implements PropertyChangeListener {
 

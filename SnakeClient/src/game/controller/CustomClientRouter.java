@@ -1,6 +1,5 @@
 package game.controller;
 
-import java.net.ConnectException;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,7 +10,6 @@ import core.requests.Connexion;
 import core.requests.MapState;
 import core.requests.WhichMap;
 import core.requests.response.Response;
-import core.requests.response.ResponseStatus;
 import request_handling.AbstractRequestFactory;
 import request_handling.EndRoutine;
 import request_handling.FunctionRequest;

@@ -1,15 +1,8 @@
 package controller;
 
-import java.net.ServerSocket;
-
-import core.Game;
-import core.InputMap;
 import core.ServerSnakeGame;
-import core.SnakeGame;
 import core.event.handler.ClientStateRefresher;
 import core.event.handler.EventType;
-import request_handling.Router;
-import server_tools.CommunicationBridge;
 
 public class RemoteServerController extends AbstractController{
 

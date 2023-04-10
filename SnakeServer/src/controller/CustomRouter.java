@@ -9,10 +9,8 @@ import java.util.Map;
 
 import behavior.PlayerBehavior;
 import core.Context;
-import core.Game;
 import core.InputMap;
 import core.ServerSnakeGame;
-import core.SnakeGame;
 import core.event.handler.EventType;
 import core.event.handler.GameOverHandler;
 import core.requests.Connexion;
@@ -32,7 +30,6 @@ import utils.ColorSnake;
 import utils.FeaturesSnake;
 import utils.OnlineSnake;
 import utils.Position;
-import utils.Snake;
 
 
 public class CustomRouter extends Router {

@@ -28,17 +28,19 @@ public class GameOverHandler implements PropertyChangeListener {
 		EndgameQuery query = new EndgameQuery();
 		int[] ids = new int[this.controller.getGame().getGraveyard().size()];
 		int[] ranks = new int[this.controller.getGame().getGraveyard().size()];
-		Float[] moneys = new Float[this.controller.getGame().getGraveyard().size()];
+		int[] apple_eaten = new int[this.controller.getGame().getGraveyard().size()];
 		for(int i =0;i<this.controller.getGame().getGraveyard().size();i++) {
 			OnlineSnake snake = (OnlineSnake) this.controller.getGame().getGraveyard().get(i);
 			System.out.println("Description du snake :" + snake.getDescription().getId());
 			ids[i] = (int) snake.getDescription().getId();
 			ranks[i] = (this.controller.getGame().getGraveyard().size())-i;
-			moneys[i] = (float) (snake.getFeaturesSnake().getPositions().size()-1);
+			
+//			nombre de pommes mangées			
+			apple_eaten[i] = (snake.getFeaturesSnake().getPositions().size()-1);
 		}
 
 		query.postQuery(ids,this.controller.getGame().getMap().getFilename(),
-					   (float)this.controller.getGame().getTurn(),ranks,moneys);
+					   (float)this.controller.getGame().getTurn(),ranks,apple_eaten);
 
 		
 		System.out.println("Cleaning the instances of " + controller.getGame());

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import request_handling.MayBeResponse;
+import request_handling.Request;
 
 public class WhichMap extends MayBeResponse {
 	
@@ -47,7 +48,7 @@ public class WhichMap extends MayBeResponse {
 	protected ObjectNode encodeRequest(ObjectNode base) {
 		
 		if(base == null) {
-			base = this.mapper.createObjectNode();
+			base = Request.mapper.createObjectNode();
 		}
 		
 		if(this.isResponse()) {

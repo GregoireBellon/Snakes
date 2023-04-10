@@ -18,17 +18,17 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/etud/Documents/S2/Prog Reseau/Autre/jackson-annotations-2.9.9.jar">
+	<classpathentry kind="lib" path="/home/grego/Documents/FAC/ProgReseau/workspace/SnakeServer/libs/jackson-databind-2.9.9.3.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/etud/Documents/S2/Prog Reseau/Autre/jackson-core-2.14.0.jar">
+	<classpathentry kind="lib" path="/home/grego/Documents/FAC/ProgReseau/workspace/SnakeServer/libs/jackson-core-2.14.0.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/etud/Documents/S2/Prog Reseau/Autre/jackson-databind-2.9.9.3.jar">
+	<classpathentry kind="lib" path="/home/grego/Documents/FAC/ProgReseau/workspace/SnakeServer/libs/jackson-annotations-2.9.9.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>

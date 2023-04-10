@@ -38,7 +38,7 @@ public class Deconnexion extends Request{
 	protected ObjectNode encodeRequest(ObjectNode base) {
 		
 		if(base == null) {
-			base = this.mapper.createObjectNode();
+			base = Request.mapper.createObjectNode();
 		}
 		
 		base.put("username", username);

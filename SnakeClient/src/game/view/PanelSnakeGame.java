@@ -15,7 +15,6 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import utils.AgentAction;
-import utils.ColorSnake;
 import utils.FeaturesSnake;
 import utils.items.*;
 import utils.Position;

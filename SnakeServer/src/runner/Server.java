@@ -3,9 +3,7 @@ package runner;
 import java.net.ServerSocket;
 
 import controller.CustomRouter;
-import controller.RemoteServerController;
 import core.InputMap;
-import core.ServerSnakeGame;
 import core.requests.RequestFactory;
 import server_tools.CommunicationBridge;
 
@@ -19,7 +17,7 @@ public class Server {
 		
 		ServerSocket so = new ServerSocket(44_444);
 		
-		CustomRouter rev = new CustomRouter(new RequestFactory(), 0, 2);
+		CustomRouter rev = new CustomRouter(new RequestFactory(), 2, 2);
 		
 		CommunicationBridge bridge = new CommunicationBridge(so, rev);
 		

@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import core.Context;
 import request_handling.MayBeResponse;
+import request_handling.Request;
 import utils.FeaturesSnake;
 import utils.items.FeaturesItem;
 
@@ -133,7 +134,7 @@ public class MapState extends MayBeResponse{
 	protected ObjectNode encodeRequest(ObjectNode base) {
 
 		if(base == null) {
-			base = this.mapper.createObjectNode();
+			base = Request.mapper.createObjectNode();
 		}
 
 

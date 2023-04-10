@@ -34,7 +34,7 @@ public abstract class Request {
 		ObjectNode content = getContent();
 
 		if(content == null) {
-			content = encodeRequest(this.mapper.createObjectNode());	
+			content = encodeRequest(Request.mapper.createObjectNode());	
 			setContent(content);
 		}
 
@@ -51,7 +51,7 @@ public abstract class Request {
 	protected ObjectNode encodeRequest(ObjectNode base) {
 
 		if(base == null) {
-			base = this.mapper.createObjectNode();
+			base = Request.mapper.createObjectNode();
 		}		
 		
 		base.put("id", this.getID());
